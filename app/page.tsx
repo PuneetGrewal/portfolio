@@ -1,6 +1,6 @@
 export default function Page() {
   return (
-    <section>
+    <section className="bg-background text-foreground p-8">
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
         My Portfolio
       </h1>
@@ -8,5 +8,5 @@ export default function Page() {
         {`Puneet Grewal.`}
       </p>
     </section>
-  )
+  );
 }
