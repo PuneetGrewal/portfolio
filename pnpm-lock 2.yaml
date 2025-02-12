@@ -37,13 +37,10 @@ importers:
         version: 18.2.19
       '@vercel/analytics':
         specifier: ^1.1.3
-        version: 1.5.0(next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        version: 1.5.0(next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@vercel/speed-insights':
         specifier: ^1.0.9
-        version: 1.2.0(next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.5.2)
+        version: 1.2.0(next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -55,22 +52,19 @@ importers:
         version: 1.0.4(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       geist:
         specifier: 1.2.2
-        version: 1.2.2(next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        version: 1.2.2(next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@18.2.0)
       next:
         specifier: canary
-        version: 15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-mdx-remote:
         specifier: ^4.4.1
         version: 4.4.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      postcss:
-        specifier: ^8.5.2
-        version: 8.5.2
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -83,15 +77,25 @@ importers:
       tailwind-merge:
         specifier: ^3.0.1
         version: 3.0.1
-      tailwindcss:
-        specifier: 4.0.0-alpha.13
-        version: 4.0.0-alpha.13
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@4.0.0-alpha.13)
+        version: 1.0.7(tailwindcss@4.0.6)
       typescript:
         specifier: 5.3.3
         version: 5.3.3
+    devDependencies:
+      '@types/tailwindcss':
+        specifier: ^3.1.0
+        version: 3.1.0
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.5.2)
+      postcss:
+        specifier: ^8.5.2
+        version: 8.5.2
+      tailwindcss:
+        specifier: ^4.0.6
+        version: 4.0.6
 
 packages:
 
@@ -226,53 +230,53 @@ packages:
     peerDependencies:
       react: '>=16'
 
-  '@next/env@15.2.0-canary.54':
-    resolution: {integrity: sha512-GluhWYkJp9ejU4AlPotB++QonWePZ6ynx/yfdkOWEN6IWaRt4wekihe2E89eKvtKXJAsj5zn8BTqu+RuKfTOEw==}
+  '@next/env@15.2.0-canary.52':
+    resolution: {integrity: sha512-fT4kkQyYYjs+AZrcxzwJS1ckMIY97CSqEWfVSbUkhWPx8E5wlcgcCn9MYVmKwpD5lnX+NJtC/EXXY9NVj4ApmQ==}
 
-  '@next/swc-darwin-arm64@15.2.0-canary.54':
-    resolution: {integrity: sha512-2QupVWl/AjbSpIsHvCmcmvsG4vgrHl7mMMD63cz2irz0MJHx1z4W4q/fIPlj9PVty4RjbZHn3QDj2PbNJyWbXA==}
+  '@next/swc-darwin-arm64@15.2.0-canary.52':
+    resolution: {integrity: sha512-p8FbY+66RQluTOfWOddFMlD2nLR40m5CX7XLm5o5hdkHRMsIV8vY+fy2bpxFpJ0ZRvCcRPmCJw9Kihz6NRqv1g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.2.0-canary.54':
-    resolution: {integrity: sha512-c7jLWQ9FxZZrAF9e0Fe3hMIvTMiEoqYHcwzbCNA/LheszyEooso6ZYpzPL09jcdGUoG5ZposFBuhT5xyFdB2WA==}
+  '@next/swc-darwin-x64@15.2.0-canary.52':
+    resolution: {integrity: sha512-sgIjWHd9U/BR8fFNOJfhblPOugke8o/RHpqNga0/kd5uE8Q3UndRoKKPQQwhLXU8oJvdYsI7TYWQ8EhkH3SetQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@15.2.0-canary.54':
-    resolution: {integrity: sha512-VEOVAacT/GMDioA70TkrD/IBISkHfCRK/ADdKUfUS8iQfbUVvTdcKErkBJ0HWWjlvyLv6qtucXzirjpc/qEGHQ==}
+  '@next/swc-linux-arm64-gnu@15.2.0-canary.52':
+    resolution: {integrity: sha512-wQYazfVQ00uPQTFz44SwwJ0t1yq2jKE+ZFAoEW6tv463UVScVllHg6WOocQa2uGv7sfVUqo/Uym5ira2rWHjaA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.2.0-canary.54':
-    resolution: {integrity: sha512-5yat+8pVOlFdYElyrfbu6f6e4RcsBAeEzqkf0FDMxPcmYyZY1NwmbV5fJRORzLhwx9cOJcRa9LQMuGJCNCM/wA==}
+  '@next/swc-linux-arm64-musl@15.2.0-canary.52':
+    resolution: {integrity: sha512-pqtE3dIAYNTsbjA89UyDjh8hUaBuWgFQ3onKREbdfvxgKj5ZqAjGqoYxcxfVTiurfn7NU3DHLRHu0KrtgQB5Tg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.2.0-canary.54':
-    resolution: {integrity: sha512-zQ6e1KLF8JAMA+NXvyaKm+ILmIptt5Tx61aDA9QYKr82FOekGoTbVHT/8yg/AkLzqVUDyy/56Geq0g5OU/SSAA==}
+  '@next/swc-linux-x64-gnu@15.2.0-canary.52':
+    resolution: {integrity: sha512-jXRQPPrCOgry+NIb6evOE/4CiYIa3iSatZoZU6p1yXc4/fSf8fDjKm9mOj8cIa/ffaN9j5qrWpIv3siFNmQ/7Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.2.0-canary.54':
-    resolution: {integrity: sha512-V6gLu3rWV0bGSLThQwXdvkwXhE1zH38YWRqeU4ex1yF+YTHBK0AIdP3ysmRI4eGFE1w1UWdaMaEIEeamZJzPDA==}
+  '@next/swc-linux-x64-musl@15.2.0-canary.52':
+    resolution: {integrity: sha512-iQEYjAlqZLG1fHEn8Ztp6IUvjfQ4hS0x0UtpVwczDPVo/cqckMgIR2jjKEDKDfcoJFOuKKyfGVsSq2fIq+BzYQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@15.2.0-canary.54':
-    resolution: {integrity: sha512-p5Re4RvfeJyvMSd8RByw2wKCdRGCdl2HiGhfkA+ZQPdPL+Cz84Qj8AZLHAafRF2qGt7NgkMvRSDByb7IhT34mQ==}
+  '@next/swc-win32-arm64-msvc@15.2.0-canary.52':
+    resolution: {integrity: sha512-z9/8kcFqdfB0yih7M8TUOai/k5yKZUDUgxuwu5VvxDNX+Rbgn51kWHf4KMZNafvTlTPPvu7ifNCdHGbPoIFHxw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.2.0-canary.54':
-    resolution: {integrity: sha512-TwinUFFjxVG3JkxWJyfhc9PyAxv6OTCXWOgly3p2yn1nkF8Tgy+3ZcDf/60BiyYLlYdE0ci+qSqdI2VGojBLyA==}
+  '@next/swc-win32-x64-msvc@15.2.0-canary.52':
+    resolution: {integrity: sha512-JkK4gqRip4IhI91usGpfNYRMtjuzDG45QHursEG/6g11fA4k6LITOkYZ2u9GKPxaeNi2a7p3ZhUEx+zZhY5hew==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -631,6 +635,10 @@ packages:
 
   '@types/scheduler@0.23.0':
     resolution: {integrity: sha512-YIoDCTH3Af6XM5VuwGG/QL/CJqga1Zm3NkU3HZ4ZHK2fRMPYP1VczsTUqtsf43PH/iJNVlPHAo2oWX7BSdB2Hw==}
+
+  '@types/tailwindcss@3.1.0':
+    resolution: {integrity: sha512-JxPzrm609hzvF4nmOI3StLjbBEP3WWQxDDJESqR1nh94h7gyyy3XSl0hn5RBMJ9mPudlLjtaXs5YEBtLw7CnPA==}
+    deprecated: This is a stub types definition. tailwindcss provides its own type definitions, so you do not need this installed.
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -1126,8 +1134,8 @@ packages:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
       react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
-  next@15.2.0-canary.54:
-    resolution: {integrity: sha512-KuqvpJ05Eaa5//9zQU8JScR7kUs+CH4XqAiganKHGxYmKRX4gXduSNK+E7GDrYKsuvrCtQRVXO266blZG30Hvw==}
+  next@15.2.0-canary.52:
+    resolution: {integrity: sha512-X9TbVXJX0pJFImvZMQtjEdt3Ev/zI5FZ61YjS+wQsmoDOiJf0/yaCg73wyy03zSA+4U3R+i5tVbgcfvekcvzag==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -1316,6 +1324,9 @@ packages:
 
   tailwindcss@4.0.0-alpha.13:
     resolution: {integrity: sha512-YbLm8I10/bsGr7zrUNxn4Soj9Lc71anTWu/ulgry64rbBU4m0vov539+caeifAiKhsef2NUCW1twaqH3NfJd2Q==}
+
+  tailwindcss@4.0.6:
+    resolution: {integrity: sha512-mysewHYJKaXgNOW6pp5xon/emCsfAMnO8WMaGKZZ35fomnR/T5gYnRg2/yRTTrtXiEl1tiVkeRt0eMO6HxEZqw==}
 
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
@@ -1536,30 +1547,30 @@ snapshots:
       '@types/react': 18.2.55
       react: 18.2.0
 
-  '@next/env@15.2.0-canary.54': {}
+  '@next/env@15.2.0-canary.52': {}
 
-  '@next/swc-darwin-arm64@15.2.0-canary.54':
+  '@next/swc-darwin-arm64@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-darwin-x64@15.2.0-canary.54':
+  '@next/swc-darwin-x64@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.2.0-canary.54':
+  '@next/swc-linux-arm64-gnu@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.2.0-canary.54':
+  '@next/swc-linux-arm64-musl@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.2.0-canary.54':
+  '@next/swc-linux-x64-gnu@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.2.0-canary.54':
+  '@next/swc-linux-x64-musl@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.2.0-canary.54':
+  '@next/swc-win32-arm64-msvc@15.2.0-canary.52':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.2.0-canary.54':
+  '@next/swc-win32-x64-msvc@15.2.0-canary.52':
     optional: true
 
   '@radix-ui/primitive@1.1.1': {}
@@ -1880,16 +1891,20 @@ snapshots:
 
   '@types/scheduler@0.23.0': {}
 
+  '@types/tailwindcss@3.1.0':
+    dependencies:
+      tailwindcss: 4.0.6
+
   '@types/unist@2.0.11': {}
 
-  '@vercel/analytics@1.5.0(next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
+  '@vercel/analytics@1.5.0(next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
     optionalDependencies:
-      next: 15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
 
-  '@vercel/speed-insights@1.2.0(next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
+  '@vercel/speed-insights@1.2.0(next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
     optionalDependencies:
-      next: 15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
 
   acorn-jsx@5.3.2(acorn@8.14.0):
@@ -2041,9 +2056,9 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  geist@1.2.2(next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
+  geist@1.2.2(next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
     dependencies:
-      next: 15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
   get-nonce@1.0.1: {}
 
@@ -2495,9 +2510,9 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  next@15.2.0-canary.54(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next@15.2.0-canary.52(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      '@next/env': 15.2.0-canary.54
+      '@next/env': 15.2.0-canary.52
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
@@ -2507,14 +2522,14 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       styled-jsx: 5.1.6(react@18.2.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.2.0-canary.54
-      '@next/swc-darwin-x64': 15.2.0-canary.54
-      '@next/swc-linux-arm64-gnu': 15.2.0-canary.54
-      '@next/swc-linux-arm64-musl': 15.2.0-canary.54
-      '@next/swc-linux-x64-gnu': 15.2.0-canary.54
-      '@next/swc-linux-x64-musl': 15.2.0-canary.54
-      '@next/swc-win32-arm64-msvc': 15.2.0-canary.54
-      '@next/swc-win32-x64-msvc': 15.2.0-canary.54
+      '@next/swc-darwin-arm64': 15.2.0-canary.52
+      '@next/swc-darwin-x64': 15.2.0-canary.52
+      '@next/swc-linux-arm64-gnu': 15.2.0-canary.52
+      '@next/swc-linux-arm64-musl': 15.2.0-canary.52
+      '@next/swc-linux-x64-gnu': 15.2.0-canary.52
+      '@next/swc-linux-x64-musl': 15.2.0-canary.52
+      '@next/swc-win32-arm64-msvc': 15.2.0-canary.52
+      '@next/swc-win32-x64-msvc': 15.2.0-canary.52
       sharp: 0.33.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -2709,11 +2724,13 @@ snapshots:
 
   tailwind-merge@3.0.1: {}
 
-  tailwindcss-animate@1.0.7(tailwindcss@4.0.0-alpha.13):
+  tailwindcss-animate@1.0.7(tailwindcss@4.0.6):
     dependencies:
-      tailwindcss: 4.0.0-alpha.13
+      tailwindcss: 4.0.6
 
   tailwindcss@4.0.0-alpha.13: {}
+
+  tailwindcss@4.0.6: {}
 
   trim-lines@3.0.1: {}
 
