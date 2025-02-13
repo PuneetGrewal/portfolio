@@ -10,7 +10,7 @@ const photos = [
 ]
 
 export const metadata = {
-  title: "Hobies",
+  title: "Hobbies",
   description: "Here are things I do in my free time.",
 };
 
