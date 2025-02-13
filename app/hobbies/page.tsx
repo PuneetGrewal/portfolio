@@ -9,6 +9,11 @@ const photos = [
   { src: "/images/nature4.jpg", caption: "Ferry Emerging", location: "Vancouver, BC, Canada" },
 ]
 
+export const metadata = {
+  title: "Hobies",
+  description: "Here are things I do in my free time.",
+};
+
 export default function Hobbies() {
     return (
       <div className="min-h-screen p-24">
@@ -58,7 +63,7 @@ export default function Hobbies() {
                   className="w-full h-full object-cover"
                   src="/videos/tennis2.mp4"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 ">
                   <Maximize2 className="w-8 h-8 text-white" />
                 </div>
               </div>
