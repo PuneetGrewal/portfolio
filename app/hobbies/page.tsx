@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
+import { PhotoItem } from "@/components/photoitem" ; // Adjust the import path as needed
+
 
 const photos = [
   { src: "/images/nature1.jpg", caption: "Coastal Rennaisance", location: "Lion's Bay, BC, Canada" },
@@ -81,46 +83,54 @@ export default function Hobbies() {
         </div>
       </section>
   
-      {/* Photography Section */}
-                <section>
-                  <h2 className="text-2xl font-semibold mb-6">Photography TEST</h2>
+       
+                {/* <section>
+                  <h2 className="text-2xl font-semibold mb-6">Photography</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {photos.map((photo, index) => (
-                      <Dialog key={index}>
-                        <DialogTrigger asChild>
-                          <div className="relative rounded-lg overflow-hidden group cursor-pointer transition-transform duration-300 hover:scale-110">
-                            <Image
-                              src={photo.src || "/placeholder.svg"}
-                              alt={photo.caption}
-                              width={3024}
-                              height={4032}
-                              className="object-cover w-full h-64"
-                              priority
-                            />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex flex-col items-center justify-end opacity-0 group-hover:opacity-100 p-4">
-                              <p className="text-white text-xs font-semibold">{photo.caption}</p>
-                              <p className="text-white text-xs">{photo.location}</p>
-                              <Maximize2 className="w-8 h-8 text-white mt-2" />
-                            </div>
+                      <div key={index} className="relative overflow-hidden rounded-lg group">
+                        <div 
+                          className="cursor-pointer transition-all duration-300 transform hover:scale-105 focus:scale-125"
+                          tabIndex={0}
+                          onClick={(e) => e.currentTarget.classList.toggle('scale-125')}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              e.currentTarget.classList.toggle('scale-125');
+                            }
+                          }}
+                        >
+                          <Image
+                            src={photo.src || "/placeholder.svg"}
+                            alt={photo.caption}
+                            width={3024}
+                            height={4032}
+                            className="object-cover w-full h-64 rounded-lg"
+                            priority
+                          />
+                          
+                          <div className="absolute inset-0 flex flex-col items-center justify-end p-4 transition-opacity duration-300 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100">
+                            <p className="text-white text-sm font-semibold">{photo.caption}</p>
+                            <p className="text-white text-xs">{photo.location}</p>
                           </div>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl w-full">
-                          <DialogTitle>{photo.caption}</DialogTitle>
-                          <div className="relative w-full" style={{ maxWidth: '90vw', maxHeight: '80vh' }}>
-                            <Image
-                              src={photo.src || "/placeholder.svg"}
-                              alt={photo.caption}
-                              width={3024}
-                              height={4032}
-                              className="object-contain w-full h-full rounded-lg"
-                            />
-                          </div>
-                          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{photo.location}</p>
-                        </DialogContent>
-                      </Dialog>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </section>
+                </section> */}
+
+
+                 {/* Photography Section */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-6">Photography</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {photos.map((photo, index) => (
+                <PhotoItem key={index} photo={photo} />
+              ))}
+            </div>
+          </section>
+
+              
 
       </div>
     )
