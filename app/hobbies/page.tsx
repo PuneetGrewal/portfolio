@@ -2,6 +2,8 @@ import Image from 'next/image'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
 import { PhotoItem } from "@/components/photoitem" ; // Adjust the import path as needed
+import { VideoItem } from '@/components/videoitem'; // Adjust path as needed
+
 
 
 const photos = [
@@ -22,66 +24,20 @@ export default function Hobbies() {
         <h1 className="text-4xl font-bold mb-8">My Hobbies</h1>
         
         {/* Tennis Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-6">Tennis</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* First Tennis Video */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="relative aspect-video rounded-lg overflow-hidden group cursor-pointer ">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                  src="/videos/tennis1.mp4"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <Maximize2 className="w-8 h-8 text-white" />
-                </div>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full">
-            <DialogTitle>Tennis Video 1</DialogTitle>
-              <video
-                controls
-                autoPlay
-                className="w-full aspect-video rounded-lg"
-                src="/videos/tennis1.mp4"
-              />
-            </DialogContent>
-          </Dialog>
-
-          {/* Second Tennis Video */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="relative aspect-video rounded-lg overflow-hidden group cursor-pointer">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                  src="/videos/tennis2.mp4"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 ">
-                  <Maximize2 className="w-8 h-8 text-white" />
-                </div>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full">
-            <DialogTitle>Tennis Video 2</DialogTitle>
-              <video
-                controls
-                autoPlay
-                className="w-full aspect-video rounded-lg"
-                src="/videos/tennis2.mp4"
-              />
-            </DialogContent>
-          </Dialog>
-        </div>
-      </section>
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6">Tennis</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <VideoItem 
+              src="/videos/tennis1.mp4"
+              title="Tennis Video 1"
+            />
+            
+            <VideoItem 
+              src="/videos/tennis2.mp4"
+              title="Tennis Video 2"
+            />
+          </div>
+        </section>
   
        
                 {/* <section>
