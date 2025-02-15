@@ -13,7 +13,7 @@ export function PhotoItem({ photo }) {
           cursor-pointer 
           transition-all duration-300 transform 
           origin-center
-          ${isEnlarged ? 'scale-[2.5] z-20' : 'hover:scale-110'}
+          ${isEnlarged ? 'scale-[2.5] z-20' : 'hover:scale-110 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
