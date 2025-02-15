@@ -1,10 +1,9 @@
 import Image from 'next/image'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
-import { PhotoItem } from "@/components/photoitem" ; // Adjust the import path as needed
+import { PhotoItem } from "@/components/photoitem"; // Adjust the import path as needed
 import { VideoItem } from '@/components/videoitem'; // Adjust path as needed
-
-
+import { MountainItem } from '@/components/mountains';
 
 const photos = [
   { src: "/images/nature1.jpg", caption: "Coastal Rennaisance", location: "Lion's Bay, BC, Canada" },
@@ -13,81 +12,58 @@ const photos = [
   { src: "/images/nature4.jpg", caption: "Ferry Emerging", location: "Vancouver, BC, Canada" },
 ]
 
+const mountains = [
+  { name: "Mt. Brunswick", location: "North Shore, BC", altitude: "1788 m", image: "/mountains/brunswick.jpg" },
+  { name: "Ha Ling Peak", location: "Kananaskis Country, Alberta", altitude: "2407 m", image: "/mountains/haling.jpg" },
+  { name: "Mt. Harvey", location: "North Shore, BC", altitude: "1652 m", image: "/mountains/harvey.jpg" },
+  {name: "Pump Peak", location: "Vancouver, BC", altitude: "1449 m", image: "/mountains/seymour.jpg" }
+]
+
 export const metadata = {
   title: "Hobbies",
   description: "Here are things I do in my free time.",
 };
 
 export default function Hobbies() {
-    return (
-      <div className="min-h-screen p-24">
-        <h1 className="text-4xl font-bold mb-8">My Hobbies</h1>
-        
-        {/* Tennis Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Tennis</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <VideoItem 
-              src="/videos/tennis1.mp4"
-              title="Tennis Video 1"
-            />
-            
-            <VideoItem 
-              src="/videos/tennis2.mp4"
-              title="Tennis Video 2"
-            />
-          </div>
-        </section>
-  
-       
-                {/* <section>
-                  <h2 className="text-2xl font-semibold mb-6">Photography</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {photos.map((photo, index) => (
-                      <div key={index} className="relative overflow-hidden rounded-lg group">
-                        <div 
-                          className="cursor-pointer transition-all duration-300 transform hover:scale-105 focus:scale-125"
-                          tabIndex={0}
-                          onClick={(e) => e.currentTarget.classList.toggle('scale-125')}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              e.currentTarget.classList.toggle('scale-125');
-                            }
-                          }}
-                        >
-                          <Image
-                            src={photo.src || "/placeholder.svg"}
-                            alt={photo.caption}
-                            width={3024}
-                            height={4032}
-                            className="object-cover w-full h-64 rounded-lg"
-                            priority
-                          />
-                          
-                          <div className="absolute inset-0 flex flex-col items-center justify-end p-4 transition-opacity duration-300 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100">
-                            <p className="text-white text-sm font-semibold">{photo.caption}</p>
-                            <p className="text-white text-xs">{photo.location}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section> */}
+  return (
+    <div className="min-h-screen px-8 py-12">
+      <h1 className="text-4xl font-bold mb-6">My Hobbies</h1>
+      
+      {/* Tennis Section */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold mb-4">Tennis</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <VideoItem 
+            src="/videos/tennis1.mp4"
+            title="Tennis Video 1"
+          />
+          <VideoItem 
+            src="/videos/tennis2.mp4"
+            title="Tennis Video 2"
+          />
+        </div>
+      </section>
 
+      {/* Photography Section */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold mb-4">Photography</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {photos.map((photo, index) => (
+            <PhotoItem key={index} photo={photo} />
+          ))}
+        </div>
+      </section>
 
-                 {/* Photography Section */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6">Photography</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {photos.map((photo, index) => (
-                <PhotoItem key={index} photo={photo} />
-              ))}
-            </div>
-          </section>
+      {/* Hiking Section */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold mb-4">Hiking</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {mountains.map((mountain, index) => (
+            <MountainItem key={index} mountain={mountain} />
+          ))}
+        </div>
+      </section>
 
-              
-
-      </div>
-    )
-  }
+    </div>
+  );
+}
