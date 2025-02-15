@@ -13,10 +13,10 @@ const photos = [
 ]
 
 const mountains = [
-  { name: "Mt. Brunswick", location: "North Shore, BC", altitude: "1788 m", image: "/mountains/brunswick.jpg" },
-  { name: "Ha Ling Peak", location: "Kananaskis Country, Alberta", altitude: "2407 m", image: "/mountains/haling.jpg" },
-  { name: "Mt. Harvey", location: "North Shore, BC", altitude: "1652 m", image: "/mountains/harvey.jpg" },
-  {name: "Pump Peak", location: "Vancouver, BC", altitude: "1449 m", image: "/mountains/seymour.jpg" }
+  { name: "Mt. Brunswick", location: "North Shore, BC", altitude: "1788 m", image: "/Mountains/brunswick.jpg" },
+  { name: "Ha Ling Peak", location: "Kananaskis Country, Alberta", altitude: "2407 m", image: "/Mountains/haling.jpg" },
+  { name: "Mt. Harvey", location: "North Shore, BC", altitude: "1652 m", image: "/Mountains/harvey.jpg" },
+  {name: "Pump Peak", location: "Vancouver, BC", altitude: "1449 m", image: "/Mountains/seymour.jpg" }
 ]
 
 export const metadata = {
