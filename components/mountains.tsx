@@ -13,7 +13,7 @@ export function MountainItem({ mountain }) {
           cursor-pointer 
           transition-all duration-300 transform 
           origin-center
-          ${isEnlarged ? 'scale-[2.5] z-20' : 'hover:scale-115 rounded-lg'}
+          ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:scale-115 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
@@ -34,7 +34,9 @@ export function MountainItem({ mountain }) {
             width={3024}
             height={4032}
             className={`
-              object-cover w-full h-64 rounded-lg
+              object-cover 
+              ${isEnlarged ? 'w-auto h-auto' : 'w-full h-64'} // Dynamically adjust size based on enlarged state
+              rounded-lg
               transition-filter duration-300
               group-hover:brightness-90
               ${isEnlarged ? 'shadow-xl' : ''}
@@ -63,15 +65,10 @@ export function MountainItem({ mountain }) {
           <p className={`text-white font-semibold drop-shadow-md ${isEnlarged ? 'text-sm' : 'text-lg'}`}>
             {mountain.name}
           </p>
-          {/* <p className={`text-white drop-shadow-md ${isEnlarged ? 'text-xs' : 'text-sm'}`}>
-            {mountain.location}
-          </p> */}
           <p className={`text-white drop-shadow-md mt-1 ${isEnlarged ? 'text-[10px]' : 'text-xs'} flex items-center`}>
-                    <MountainSnow className="w-6 h-6 text-white mr-2" />
-                    <span>{mountain.altitude}</span>
-                    </p>
-
-
+            <MountainSnow className="w-6 h-6 text-white mr-2" />
+            <span>{mountain.altitude}</span>
+          </p>
         </div>
       </div>
       

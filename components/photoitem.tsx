@@ -13,7 +13,7 @@ export function PhotoItem({ photo }) {
           cursor-pointer 
           transition-all duration-300 transform 
           origin-center
-          ${isEnlarged ? 'scale-[2.5] z-20' : 'hover:scale-115 rounded-lg'}
+          ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:scale-115 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
@@ -34,7 +34,9 @@ export function PhotoItem({ photo }) {
             width={3024}
             height={4032}
             className={`
-              object-cover w-full h-64 rounded-lg
+              object-cover          
+              ${isEnlarged ? 'w-auto h-auto' : 'w-full h-64'} // Dynamically adjust size based on enlarged state
+              rounded-lg
               transition-filter duration-300
               group-hover:brightness-90
               ${isEnlarged ? 'shadow-xl' : ''}
