@@ -24,7 +24,7 @@ export default function Projects() {
     {
       id: 0,
       title: "Math4Me",
-      date: "2023",
+      date: "2025",
       github: "https://github.com/PuneetGrewal/Math4Me",
       description: 
         "An educational web application designed to help students practice and improve their math skills. The platform provides interactive problem-solving exercises and immediate feedback to enhance learning experience.",
