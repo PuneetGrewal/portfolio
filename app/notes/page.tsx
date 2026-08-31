@@ -14,7 +14,7 @@ export default function Notes() {
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Notes</h1>
 
       <p className="mb-8 text-neutral-600 dark:text-neutral-400">
-        {`Handwritten notes I've made along the way. Preview any of them right here, or download the PDF to keep.`}
+        {`Handwritten notes I've made during my time teaching at Math4Me. Notes are free to use and distribute.`}
       </p>
 
       {groups.length === 0 ? (

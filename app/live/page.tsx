@@ -24,7 +24,7 @@ export default function Live() {
       domain: "theracketlab.ca",
       url: "https://theracketlab.ca",
       description:
-        "Marketing and ordering site for a racket-stringing service in Victoria and Langford, BC. Customers choose a string from live stock, book a doorstep pickup, and have the racket back within 24 hours. Includes a string-recommendation wizard, service-area lookup, and an admin dashboard behind Supabase auth.",
+        "Marketing and ordering site for a racket-stringing service in Victoria, BC. Customers choose a string from live stock, book a doorstep pickup, and have the racket back within 24 hours. Includes a string-recommendation wizard, service-area lookup, and an admin dashboard behind Supabase auth.",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Zod", "Vercel"],
     },
     {
@@ -33,7 +33,7 @@ export default function Live() {
       domain: "math4mevic.com",
       url: "https://math4mevic.com",
       description:
-        "Marketing site and parent portal for a one-on-one math tutoring centre in Victoria, BC, serving grades 6 through 12. Self-hosted rather than shipped to a platform: the app is containerized and runs on a single-node k3s Kubernetes cluster on a Mac mini at home, behind Traefik ingress and Cloudflare, with GitHub Actions building the image to GHCR and rolling out a new release on every push to main.",
+        "Marketing site and parent portal for a math tutoring centre in Victoria, BC, serving grades 6 through 12. Self-hosted, the app is containerized and runs on a single-node k3s Kubernetes cluster on a Mac mini at home, behind Traefik ingress and Cloudflare, with GitHub Actions building the image to GHCR and rolling out a new release on every push to main.",
       tags: [
         "SvelteKit",
         "TypeScript",
@@ -51,7 +51,7 @@ export default function Live() {
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Live Sites</h1>
 
       <p className="mb-8 text-neutral-600 dark:text-neutral-400">
-        {`Sites I've built that are running in production today. The repositories are private, so each one links straight to the real thing.`}
+        {`Sites I've built that are running in production today.`}
       </p>
 
       <div className="flex flex-col gap-6 mb-8">
