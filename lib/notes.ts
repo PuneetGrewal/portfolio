@@ -1,6 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 
+export type NoteImage = {
+  src: string
+  width: number
+  height: number
+}
+
 export type Note = {
   slug: string
   file: string
@@ -8,14 +14,21 @@ export type Note = {
   description?: string
   subject?: string
   date?: string
-  pages?: number
   size: string
+  /** Rendered page images, in order. Their count is the note's page count. */
+  pages: NoteImage[]
+  /** Small render of page one, shown on the card. */
+  thumb?: NoteImage
 }
 
 /**
  * Every PDF dropped into /public/notes shows up on the notes page on its own,
  * titled from its file name and ordered by it, so a `01-`, `02-` prefix is
  * enough to control the sequence.
+ *
+ * Page images are read from /public/note-previews, keyed by a slug of the file
+ * name — see scripts/render-notes.sh, which writes them. A note with no
+ * rendered pages still lists and downloads; it just has nothing to preview.
  *
  * This map is only for making an entry nicer than its file name. Keys are the
  * file name exactly as it appears on disk, and anything left out falls back to
@@ -34,6 +47,7 @@ const noteMeta: Record<
 }
 
 const notesDir = path.join(process.cwd(), 'public', 'notes')
+const previewsDir = path.join(process.cwd(), 'public', 'note-previews')
 
 function titleFromFileName(fileName: string) {
   return fileName
@@ -42,6 +56,15 @@ function titleFromFileName(fileName: string) {
     .replace(/\s+/g, ' ')
     .trim()
     .replace(/\b\w/g, (character) => character.toUpperCase())
+}
+
+/** Must match the slug that scripts/render-notes.sh names its output with. */
+function previewSlug(fileName: string) {
+  return fileName
+    .replace(/\.pdf$/i, '')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase()
 }
 
 function formatSize(bytes: number) {
@@ -59,15 +82,33 @@ function formatSize(bytes: number) {
   return `${size < 10 ? size.toFixed(1) : Math.round(size)} ${units[unit]}`
 }
 
-// Best effort only: a PDF that keeps its page tree in a compressed object
-// stream won't match here, and we'd rather show no page count than a wrong one.
-function countPages(buffer: Buffer) {
-  const matches = buffer.toString('latin1').match(/\/Type\s*\/Page[^s]/g)
-  return matches?.length || undefined
+/** Width and height straight out of the PNG's IHDR chunk. */
+function pngSize(filePath: string) {
+  const header = Buffer.alloc(24)
+  const handle = fs.openSync(filePath, 'r')
+
+  try {
+    fs.readSync(handle, header, 0, 24, 0)
+  } finally {
+    fs.closeSync(handle)
+  }
+
+  return { width: header.readUInt32BE(16), height: header.readUInt32BE(20) }
+}
+
+function toImage(fileName: string): NoteImage {
+  return {
+    src: `/note-previews/${fileName}`,
+    ...pngSize(path.join(previewsDir, fileName)),
+  }
 }
 
 export function getNotes(): Note[] {
   if (!fs.existsSync(notesDir)) return []
+
+  const previewFiles = fs.existsSync(previewsDir)
+    ? fs.readdirSync(previewsDir)
+    : []
 
   return fs
     .readdirSync(notesDir)
@@ -75,16 +116,25 @@ export function getNotes(): Note[] {
     .map((fileName) => {
       const meta = noteMeta[fileName] ?? {}
       const filePath = path.join(notesDir, fileName)
+      const slug = previewSlug(fileName)
+
+      const pages = previewFiles
+        .filter((preview) => new RegExp(`^${slug}-p\\d+\\.png$`).test(preview))
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+        .map(toImage)
+
+      const thumbFile = `${slug}-thumb.png`
 
       return {
-        slug: fileName.replace(/\.pdf$/i, ''),
+        slug,
         file: `/notes/${encodeURIComponent(fileName)}`,
         title: meta.title ?? titleFromFileName(fileName),
         description: meta.description,
         subject: meta.subject,
         date: meta.date,
-        pages: countPages(fs.readFileSync(filePath)),
         size: formatSize(fs.statSync(filePath).size),
+        pages,
+        thumb: previewFiles.includes(thumbFile) ? toImage(thumbFile) : undefined,
       }
     })
     .sort((a, b) => a.slug.localeCompare(b.slug, undefined, { numeric: true }))
