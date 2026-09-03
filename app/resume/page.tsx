@@ -4,9 +4,18 @@ import { Button } from "@/components/ui/button";
 
 const resumeFile = "/resume/Puneet_Grewal_Resume.pdf";
 
+// Rendered from the PDF at 200 DPI. Showing the page as an image keeps the
+// browser's PDF viewer chrome — toolbar, sidebar, zoom — off the page; the
+// buttons above hand over the real PDF.
+const resumePage = {
+  src: "/resume/resume-page.png",
+  width: 1700,
+  height: 2200,
+};
+
 export const metadata = {
   title: "Resume",
-  description: "My resume, viewable in the browser or downloadable as a PDF.",
+  description: "My resume, viewable here or downloadable as a PDF.",
 };
 
 const actionButton =
@@ -17,7 +26,7 @@ export default function Resume() {
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Resume</h1>
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="mb-8 flex flex-wrap gap-2">
         <Button variant="outline" size="sm" asChild className={actionButton}>
           <a href={resumeFile} download>
             <DownloadIcon />
@@ -33,33 +42,19 @@ export default function Resume() {
         </Button>
       </div>
 
-      {/* Pulled wider than the page's text column so the resume is actually
-          readable; the viewport-relative width keeps it centred either way. */}
-      <div className="relative left-1/2 w-[92vw] max-w-4xl -translate-x-1/2">
-        {/* Rendered by the browser's own PDF viewer. The children are the
-            fallback for browsers, mostly mobile, that can't do that inline. */}
-        <object
-          data={`${resumeFile}#view=FitH`}
-          type="application/pdf"
-          aria-label="Resume"
-          className="aspect-[8.5/11] w-full rounded-xl border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
-        >
-          <div className="flex aspect-[8.5/11] w-full flex-col items-center justify-center gap-4 rounded-xl border border-neutral-200 bg-neutral-100 p-8 text-center dark:border-neutral-800 dark:bg-neutral-900">
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {`Your browser can't show this PDF inline.`}
-            </p>
-            <Button variant="outline" size="sm" asChild className={actionButton}>
-              <Link
-                href={resumeFile}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ExternalLinkIcon />
-                Open the resume
-              </Link>
-            </Button>
-          </div>
-        </object>
+      {/* Pulled wider than the page's text column, which is too narrow to read
+          a letter-size page in. The viewport-relative width stays centred. */}
+      <div className="relative left-1/2 mb-8 w-[92vw] max-w-3xl -translate-x-1/2">
+        {/* A plain img, not next/image: this is one fixed static page render,
+            so the optimizer buys nothing and costs an image transform per
+            visitor. Width and height are set to reserve the space. */}
+        <img
+          src={resumePage.src}
+          alt="Puneet Grewal's resume"
+          width={resumePage.width}
+          height={resumePage.height}
+          className="h-auto w-full rounded-xl shadow-lg ring-1 ring-neutral-200 dark:ring-neutral-800"
+        />
       </div>
     </section>
   );
