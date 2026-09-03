@@ -10,6 +10,9 @@ const navItems = {
   '/live': {
     name: 'live',
   },
+  '/resume': {
+    name: 'resume',
+  },
   '/hobbies': {
     name: 'hobbies',
   },
