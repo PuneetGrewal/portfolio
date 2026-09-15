@@ -36,7 +36,7 @@ function random(min: number, max: number) {
 // How many letters, and how big, follows the viewport: a phone gets a
 // handful of small ones so the copy stays readable, a desktop the full crowd.
 function scatter(width: number, height: number): Body[] {
-  const count = Math.min(14, Math.max(6, Math.round((width * height) / 55000)))
+  const count = Math.min(14, Math.max(10, Math.round((width * height) / 55000)))
   const edge = Math.min(width, height)
 
   return Array.from({ length: count }, (_, id) => {

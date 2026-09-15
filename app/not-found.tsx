@@ -9,12 +9,10 @@ export default function NotFound() {
       <p className="mb-2 text-8xl font-bold tracking-tighter">404</p>
 
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        This page bounced.
+        Nothing here.
       </h1>
 
-      <p className="mb-4 text-neutral-600 dark:text-neutral-400">
-        {`There's nothing at this address — just some loose P's. Grab one and throw it if you like, then head back somewhere real.`}
-      </p>
+
 
       <Link
         href="/"
