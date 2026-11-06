@@ -147,3 +147,52 @@ table {
 .title {
   text-wrap: balance;
 }
+
+/* Live sites: each card rises in on load, and hovering pans its screenshot
+   from the top of the page to the bottom. Return trip is quicker than the
+   trip down, so leaving the card doesn't make you wait. */
+@keyframes site-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.site-card {
+  animation: site-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.site-shot img {
+  object-position: 50% 0%;
+  transition: object-position 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.site-card:hover .site-shot img,
+.site-card:has(a:focus-visible) .site-shot img {
+  object-position: 50% 100%;
+  transition-duration: var(--scroll-duration, 4s);
+  /* Moves from the first frame, so hovering never looks like nothing happened. */
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.site-card:has(a:focus-visible) .site-frame {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-card {
+    animation: none;
+  }
+
+  .site-shot img,
+  .site-card:hover .site-shot img {
+    object-position: 50% 0%;
+    transition: none;
+  }
+}
