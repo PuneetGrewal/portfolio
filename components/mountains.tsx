@@ -8,40 +8,38 @@ export function MountainItem({ mountain }) {
   
   return (
     <div className="relative rounded-lg group">
-      <div 
+      <button
+        type="button"
+        aria-label={`Enlarge ${mountain.name}`}
+        aria-expanded={isEnlarged}
         className={`
-          cursor-pointer 
-          transition-all duration-300 transform 
+          block w-full text-left
+          cursor-pointer
+          transition-all duration-300 transform
           origin-center
           ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:scale-115 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
         }}
-        tabIndex={0}
         onClick={() => setIsEnlarged(!isEnlarged)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setIsEnlarged(!isEnlarged);
-          }
-        }}
       >
         <div className="relative">
+          {/* Dynamically adjust size based on enlarged state */}
           <Image
             src={mountain.image || "/placeholder.svg"}
             alt={mountain.name}
             width={3024}
             height={4032}
             className={`
-              object-cover 
-              ${isEnlarged ? 'w-auto h-auto' : 'w-full h-64'} // Dynamically adjust size based on enlarged state
+              object-cover
+              ${isEnlarged ? 'w-auto h-auto' : 'w-full h-64'}
               rounded-lg
-              transition-filter duration-300
+              transition-[filter] duration-300
               group-hover:brightness-90
               ${isEnlarged ? 'shadow-xl' : ''}
             `}
-            priority
+            sizes="(min-width: 768px) 280px, 100vw"
           />
           
           {/* Hover effect overlay */}
@@ -70,7 +68,7 @@ export function MountainItem({ mountain }) {
             <span>{mountain.altitude}</span>
           </p>
         </div>
-      </div>
+      </button>
       
       {/* Backdrop when enlarged */}
       {isEnlarged && (

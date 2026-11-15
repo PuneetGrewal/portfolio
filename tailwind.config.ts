@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const config = {
-    darkMode: false, // Don't toggle dark mode anymore
+    darkMode: false,
     content: [
       "./pages/**/*.{js,ts,jsx,tsx,mdx}",
       "./components/**/*.{js,ts,jsx,tsx,mdx}",

@@ -19,7 +19,7 @@ export const metadata = {
 };
 
 const actionButton =
-  "hover:bg-white hover:text-black transition-colors duration-200";
+  "h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200";
 
 export default function Resume() {
   return (

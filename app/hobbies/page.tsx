@@ -1,6 +1,3 @@
-import Image from 'next/image'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Maximize2 } from "lucide-react"
 import { PhotoItem } from "@/components/photoitem"; // Adjust the import path as needed
 import { VideoItem } from '@/components/videoitem'; // Adjust path as needed
 import { MountainItem } from '@/components/mountains';
@@ -26,12 +23,12 @@ export const metadata = {
 
 export default function Hobbies() {
   return (
-    <div className="min-h-screen px-8 py-12">
-      <h1 className="text-4xl font-bold mb-6">My Hobbies</h1>
+    <section>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Hobbies</h1>
       
       {/* Tennis Section */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Tennis</h2>
+        <h2 className="font-semibold text-xl mb-4 tracking-tighter">Tennis</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <VideoItem 
             src="/videos/tennis1.mp4"
@@ -46,7 +43,7 @@ export default function Hobbies() {
 
       {/* Photography Section */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Photography</h2>
+        <h2 className="font-semibold text-xl mb-4 tracking-tighter">Photography</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {photos.map((photo, index) => (
             <PhotoItem key={index} photo={photo} />
@@ -56,7 +53,7 @@ export default function Hobbies() {
 
       {/* Hiking Section */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Hiking</h2>
+        <h2 className="font-semibold text-xl mb-4 tracking-tighter">Hiking</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {mountains.map((mountain, index) => (
             <MountainItem key={index} mountain={mountain} />
@@ -64,6 +61,6 @@ export default function Hobbies() {
         </div>
       </section>
 
-    </div>
+    </section>
   );
 }

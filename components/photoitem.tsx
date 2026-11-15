@@ -28,40 +28,38 @@ export function PhotoItem({ photo }) {
 
   return (
     <div className="relative rounded-lg group">
-      <div 
+      <button
+        type="button"
+        aria-label={`Enlarge ${photo.caption}`}
+        aria-expanded={isEnlarged}
         className={`
-          cursor-pointer 
-          transition-all duration-300 transform 
+          block w-full text-left
+          cursor-pointer
+          transition-all duration-300 transform
           origin-center
           ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:scale-115 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
         }}
-        tabIndex={0}
         onClick={handleClick}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick();
-          }
-        }}
       >
         <div className="relative">
+          {/* Hide the original image when enlarged */}
           <Image
             src={photo.src || "/placeholder.svg"}
             alt={photo.caption}
             width={3024}
             height={4032}
             className={`
-              object-cover          
-              ${isEnlarged ? 'hidden' : 'w-full h-64'}  // Hide the original image when enlarged
+              object-cover
+              ${isEnlarged ? 'hidden' : 'w-full h-64'}
               rounded-lg
               transition-all duration-300
               group-hover:brightness-90
               ${isTransitioning ? 'transform scale 300' : ''}
             `}
-            priority
+            sizes="(min-width: 768px) 280px, 100vw"
           />
           
           {!isEnlarged && (
@@ -87,8 +85,8 @@ export function PhotoItem({ photo }) {
             {photo.location}
           </p>
         </div>
-      </div>
-      
+      </button>
+
       {/* Modal overlay with transition */}
       <div 
         className={`
@@ -124,7 +122,6 @@ export function PhotoItem({ photo }) {
                   width={3024}
                   height={4032}
                   className="rounded-lg object-contain max-h-[85vh] h-auto w-auto"
-                  priority
                 />
                 
                 <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/70 to-transparent rounded-b-lg">

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import type { Note } from '@/lib/notes'
 
 const actionButton =
-  'hover:bg-white hover:text-black transition-colors duration-200'
+  'h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200'
 
 // One spring for the card-to-lightbox morph and back, so opening and closing
 // feel like the same gesture.
@@ -187,7 +187,7 @@ export function NoteItem({ note }: { note: Note }) {
                   variant="outline"
                   size="sm"
                   asChild
-                  className="border-white/30 text-white hover:bg-white hover:text-black"
+                  className="border-white/30 bg-transparent text-white hover:bg-white hover:text-black focus-visible:ring-white"
                 >
                   <a href={note.file} download>
                     <Download />

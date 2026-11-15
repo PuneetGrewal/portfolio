@@ -10,8 +10,9 @@ import {
 } from 'motion/react'
 
 // The syntax-highlight palette from global.css, so the 404 uses colours the
-// rest of the site already owns.
-const palette = ['#4c97f8', '#f47067', '#0fa295', '#e25a1c', '#6266d1', '#fafafa']
+// rest of the site already owns. The last one is the text colour, so it shows
+// on both the light and the dark background.
+const palette = ['#4c97f8', '#f47067', '#0fa295', '#e25a1c', '#6266d1', 'var(--color-foreground)']
 
 // Pixels per second. Thrown letters ease back down to cruise; stalled ones
 // ease back up to it.
@@ -185,6 +186,7 @@ function BouncingP({
 
   return (
     <motion.div
+      tabIndex={-1}
       drag
       dragConstraints={boundsRef}
       dragElastic={0.15}

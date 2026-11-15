@@ -7,24 +7,21 @@ export function VideoItem({ src, title }) {
   
   return (
     <div className="relative aspect-video rounded-lg group">
-      <div 
+      <button
+        type="button"
+        aria-label={`Enlarge ${title}`}
+        aria-expanded={isEnlarged}
         className={`
-          cursor-pointer 
-          transition-all duration-300 transform 
+          block w-full text-left
+          cursor-pointer
+          transition-all duration-300 transform
           origin-center
           ${isEnlarged ? 'scale-[4.5] z-20' : 'hover:scale-120'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
         }}
-        tabIndex={0}
         onClick={() => setIsEnlarged(!isEnlarged)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setIsEnlarged(!isEnlarged);
-          }
-        }}
       >
         <video
           autoPlay
@@ -33,7 +30,7 @@ export function VideoItem({ src, title }) {
           playsInline
           className={`
             w-full h-full object-cover rounded-lg
-            transition-filter duration-300
+            transition-[filter] duration-300
             group-hover:brightness-90
             ${isEnlarged ? 'shadow-xl' : ''}
           `}
@@ -46,7 +43,7 @@ export function VideoItem({ src, title }) {
             <Maximize2 className="w-8 h-8 text-white drop-shadow-lg" />
           </div>
         )}
-      </div>
+      </button>
       
       {/* Backdrop when enlarged */}
       {isEnlarged && (

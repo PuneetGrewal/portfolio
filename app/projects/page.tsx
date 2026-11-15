@@ -62,16 +62,17 @@ export default function Projects() {
 
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Personal</h1>
+      <h1 className="sr-only">Projects</h1>
+      <h2 className="font-semibold text-2xl mb-8 tracking-tighter">Personal</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {personalProjects.map((project) => (
-          <Card key={project.id} className="flex flex-col shadow-md hover:shadow-lg transition-shadow duration-300">
+          <Card key={project.id} className="flex flex-col shadow-md">
             <CardHeader>
               <CardTitle>{project.title}</CardTitle>
-              <CardDescription className="grid grid-rows-2 gap-2">
-                <div className="flex items-center text-gray-600">
+              <CardDescription className="flex flex-col gap-2">
+                <div className="flex items-center text-neutral-600 dark:text-neutral-400">
                   <CalendarIcon className="h-4 w-4 mr-2" />
-                  <span className="text-gray-500">{project.date}</span>
+                  <span>{project.date}</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 w-full">
@@ -79,7 +80,7 @@ export default function Projects() {
                     <Badge 
                       key={index} 
                       variant="secondary" 
-                      className="bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-200"
+                      className="bg-neutral-100 text-neutral-800 hover:bg-neutral-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-800"
                     >
                       {tag}
                     </Badge>
@@ -96,7 +97,7 @@ export default function Projects() {
             <CardFooter className="mt-auto flex flex-col gap-4">
               <div className="flex flex-wrap gap-2 w-full">
                 {project.github && (
-                  <Button variant="outline" size="sm" asChild className="hover:bg-white hover:text-black transition-colors duration-200">
+                  <Button variant="outline" size="sm" asChild className="h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200">
                     <Link
                       href={project.github}
                       target="_blank"
@@ -113,12 +114,12 @@ export default function Projects() {
         ))}
       </div>
 
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+      <h2 className="font-semibold text-2xl mb-8 tracking-tighter">
         Coursework
-      </h1>
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {courseworkProjects.map((project) => (
-          <Card key={project.id} className="flex flex-col h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+          <Card key={project.id} className="flex flex-col h-full shadow-md">
             <CardHeader>
               <CardTitle>{project.title}</CardTitle>
 
@@ -127,14 +128,14 @@ export default function Projects() {
                   <Badge 
                     key={index} 
                     variant="secondary" 
-                    className="bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-200"
+                    className="bg-neutral-100 text-neutral-800 hover:bg-neutral-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-800"
                   >
                     {tag}
                   </Badge>
                 ))}
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow">
+            <CardContent className="grow">
               <p
                 dangerouslySetInnerHTML={{ __html: project.description }}
                 className="text-sm text-muted-foreground"
@@ -143,7 +144,7 @@ export default function Projects() {
             <CardFooter className="mt-auto flex flex-col gap-4">
               <div className="flex flex-wrap gap-2 w-full">
                 {project.github && (
-                  <Button variant="outline" size="sm" asChild className="hover:bg-white hover:text-black transition-colors duration-200">
+                  <Button variant="outline" size="sm" asChild className="h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200">
                     <Link
                       href={project.github}
                       target="_blank"
