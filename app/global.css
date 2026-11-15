@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 
+/* dark: classes follow a .dark class on <html>. next-themes sets it before the
+   page paints, from the visitor's choice or, by default, their OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Colours for the shadcn/ui classes (bg-background, text-muted-foreground, …).
-   @theme holds the light values and the media query swaps in the dark ones, so
-   these follow the visitor's OS setting the same way the dark: classes do. */
+   @theme holds the light values and .dark below swaps in the dark ones. */
 @theme {
   --color-background: #ffffff;
   --color-foreground: #171717;
@@ -29,25 +32,24 @@
   --color-amber-600: #d97706;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #111111;
-    --color-foreground: #fefefe;
-    --color-card: #1c1c1c;
-    --color-card-foreground: #e0e0e0;
-    --color-muted-foreground: #a3a3a3;
-    --color-accent: #1c1c1c;
-    --color-accent-foreground: #fefefe;
-    --color-border: #444444;
-    --color-input: #444444;
-    --color-ring: #a3a3a3;
-  }
+.dark {
+  color-scheme: dark;
+  --color-background: #111111;
+  --color-foreground: #fefefe;
+  --color-card: #1c1c1c;
+  --color-card-foreground: #e0e0e0;
+  --color-muted-foreground: #a3a3a3;
+  --color-accent: #1c1c1c;
+  --color-accent-foreground: #fefefe;
+  --color-border: #444444;
+  --color-input: #444444;
+  --color-ring: #a3a3a3;
 }
 
 /* In the base layer so utilities such as border-neutral-800 still win. */
 @layer base {
   html {
-    color-scheme: light dark;
+    color-scheme: light;
   }
 
   body {
@@ -77,16 +79,11 @@
   --sh-entity: #e25a1c; /* Dark mode entity color */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
-  }
+.dark {
+  --sh-class: #4c97f8;
+  --sh-identifier: white;
+  --sh-keyword: #f47067;
+  --sh-string: #0fa295;
 }
 
 html {
