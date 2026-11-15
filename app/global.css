@@ -18,6 +18,15 @@
   --color-border: #e5e5e5;
   --color-input: #d4d4d4;
   --color-ring: #737373;
+
+  /* Tailwind 4 moved its palette to OKLCH, which shifts these a little. Pinned
+     to the values the /live status pills were designed with. */
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
 }
 
 @media (prefers-color-scheme: dark) {

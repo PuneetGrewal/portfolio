@@ -106,7 +106,7 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
       className="site-card group relative"
       style={{ "--i": index } as CSSProperties}
     >
-      <div className="site-frame overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 shadow-sm transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="site-frame overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 shadow-xs transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-900">
         <div className="flex h-9 items-center gap-3 border-b border-neutral-200 px-3.5 dark:border-neutral-800">
           <span className="flex shrink-0 gap-1.5" aria-hidden>
             <span className="h-2.5 w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
@@ -154,7 +154,7 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
                 href={site.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="outline-none"
+                className="outline-hidden"
               >
                 {site.name}
                 {site.status === "preview" && (

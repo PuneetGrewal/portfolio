@@ -85,7 +85,7 @@ export function PhotoItem({ photo }) {
       {/* Modal overlay with transition */}
       <div 
         className={`
-          fixed inset-0 z-40 bg-black/80 backdrop-blur-sm
+          fixed inset-0 z-40 bg-black/80 backdrop-blur-xs
           transition-opacity duration-300
           ${isEnlarged ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         `}

@@ -75,7 +75,7 @@ export function MountainItem({ mountain }) {
       {/* Backdrop when enlarged */}
       {isEnlarged && (
         <div 
-          className="fixed inset-0 bg-black/60 z-10 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/60 z-10 backdrop-blur-xs"
           onClick={() => setIsEnlarged(false)}
         />
       )}
