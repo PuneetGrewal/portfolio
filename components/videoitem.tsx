@@ -1,9 +1,19 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Maximize2 } from 'lucide-react';
 
 export function VideoItem({ src, title }) {
   const [isEnlarged, setIsEnlarged] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // autoPlay stays in the markup because the server can't know the visitor's
+  // motion setting, and React won't drop the attribute when it hydrates.
+  // Pausing here stops the video, or keeps it from starting if it hasn't yet.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      videoRef.current?.pause();
+    }
+  }, []);
   
   return (
     <div className="relative aspect-video rounded-lg group">
@@ -24,6 +34,7 @@ export function VideoItem({ src, title }) {
         onClick={() => setIsEnlarged(!isEnlarged)}
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop

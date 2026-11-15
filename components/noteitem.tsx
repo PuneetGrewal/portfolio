@@ -187,7 +187,7 @@ export function NoteItem({ note }: { note: Note }) {
                   variant="outline"
                   size="sm"
                   asChild
-                  className="border-white/30 bg-transparent text-white hover:bg-white hover:text-black focus-visible:ring-white"
+                  className="h-11 sm:h-8 border-white/30 bg-transparent text-white hover:bg-white hover:text-black focus-visible:ring-white"
                 >
                   <a href={note.file} download>
                     <Download />

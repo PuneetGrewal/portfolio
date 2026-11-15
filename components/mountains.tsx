@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Maximize2, Mountain, MountainSnow } from 'lucide-react';
+import { Maximize2, MountainSnow } from 'lucide-react';
 
 export function MountainItem({ mountain }) {
   const [isEnlarged, setIsEnlarged] = useState(false);
@@ -25,7 +25,9 @@ export function MountainItem({ mountain }) {
         onClick={() => setIsEnlarged(!isEnlarged)}
       >
         <div className="relative">
-          {/* Dynamically adjust size based on enlarged state */}
+          {/* Dynamically adjust size based on enlarged state. From 768px up,
+              sizes is the enlarged width (twice the 276px tile) so it stays
+              sharp; below that it's 100vw and the enlarged view is softer. */}
           <Image
             src={mountain.image || "/placeholder.svg"}
             alt={mountain.name}
@@ -39,7 +41,7 @@ export function MountainItem({ mountain }) {
               group-hover:brightness-90
               ${isEnlarged ? 'shadow-xl' : ''}
             `}
-            sizes="(min-width: 768px) 280px, 100vw"
+            sizes="(min-width: 768px) 552px, 100vw"
           />
           
           {/* Hover effect overlay */}

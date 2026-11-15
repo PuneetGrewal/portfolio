@@ -5,7 +5,6 @@ import { Maximize2, X } from 'lucide-react';
 
 export function PhotoItem({ photo }) {
   const [isEnlarged, setIsEnlarged] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   
   useEffect(() => {
     if (isEnlarged) {
@@ -20,10 +19,7 @@ export function PhotoItem({ photo }) {
   }, [isEnlarged]);
 
   const handleClick = () => {
-    setIsTransitioning(true);
     setIsEnlarged(!isEnlarged);
-    // Reset transition state after animation completes
-    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   return (
@@ -57,7 +53,6 @@ export function PhotoItem({ photo }) {
               rounded-lg
               transition-all duration-300
               group-hover:brightness-90
-              ${isTransitioning ? 'transform scale 300' : ''}
             `}
             sizes="(min-width: 768px) 280px, 100vw"
           />
