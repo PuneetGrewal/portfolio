@@ -15,9 +15,9 @@ export function MountainItem({ mountain }) {
         className={`
           block w-full text-left
           cursor-pointer
-          transition-all duration-300 transform
+          transition-all duration-300 transform motion-reduce:transition-none
           origin-center
-          ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:scale-115 rounded-lg'}
+          ${isEnlarged ? 'scale-[2.0] z-20' : 'motion-safe:hover:scale-115 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',

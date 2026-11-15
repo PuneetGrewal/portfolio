@@ -24,6 +24,8 @@ export function PhotoItem({ photo }) {
 
   return (
     <div className="relative rounded-lg group">
+      {/* The tile doesn't scale while the lightbox is open: the photo shows
+          there, and a 2x empty tile widened the page on phones. */}
       <button
         type="button"
         aria-label={`Enlarge ${photo.caption}`}
@@ -31,9 +33,9 @@ export function PhotoItem({ photo }) {
         className={`
           block w-full text-left
           cursor-pointer
-          transition-all duration-300 transform
+          transition-all duration-300 transform motion-reduce:transition-none
           origin-center
-          ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:scale-115 rounded-lg'}
+          ${isEnlarged ? '' : 'motion-safe:hover:scale-115 rounded-lg'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
@@ -94,14 +96,16 @@ export function PhotoItem({ photo }) {
         <div 
           className={`
             fixed inset-0 z-50 flex items-center justify-center
-            transition-transform duration-300
+            transition-transform duration-300 motion-reduce:transition-none
             ${isEnlarged ? 'scale-100' : 'scale-95'}
           `}
         >
           {isEnlarged && (
             <>
               <button
-                className="absolute top-4 right-4 p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+                type="button"
+                aria-label="Close photo"
+                className="absolute top-4 right-4 p-2.5 text-white hover:bg-white/20 rounded-full transition-colors"
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent click from propagating to modal
                   handleClick(); // Close image when X is clicked
