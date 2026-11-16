@@ -1,15 +1,40 @@
+import Link from "next/link";
+
+const link =
+  "underline underline-offset-2 decoration-neutral-400 hover:decoration-neutral-900 dark:hover:decoration-neutral-100";
+
 export default function Page() {
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        My Portfolio
+        Hi, I'm Puneet
       </h1>
       <p className="mb-4">
-        {`I’m a software developer with hands-on experience in full-stack development and advanced hardware testing. Currently at Math4Me I am working on a custom enrollment system to streamline client data—improving efficiency and replacing the numerous existing Google Forms and Sheets in use.`}
+        {`I'm a software developer in Victoria, BC. I studied Computer Science at UVic, with a minor in Business.`}
       </p>
 
       <p className="mb-4">
-        {`Past experience includes working on Network configurations, QA Testing, creating Software Acceptance Test Plans and working in Python to automate tasks. My tech stack includes Java, Python, C, and TypeScript, and I have experience with Next.js, React, Supabase, and SQL, bringing both robust technical solutions and user-friendly designs to every project.`}
+        {`Right now I work at Math4Me, a tutoring centre with three locations. I built the portal parents use to see attendance and progress reports, and I rebuilt the centre's website. I also help run the day to day, from scheduling 75+ students to hiring and training new mentors.`}
+      </p>
+
+      <p className="mb-4">
+        {`On the side I run The Racket Lab, a racket stringing service I started. I built the booking site myself, and it has taken over 75 orders from more than 50 customers so far. I also keep an old Mac mini at home running as a small server that hosts some of my live sites.`}
+      </p>
+
+      <p className="mb-4">
+        {`Before that I did two co-op terms at Lantronix in Vancouver, testing network hardware and an in-car entertainment system, and writing scripts to take care of the repetitive work.`}
+      </p>
+
+      <p className="mb-4">
+        You can see the sites I've built on the{" "}
+        <Link href="/live" className={link}>
+          Live
+        </Link>{" "}
+        page, or check out my other{" "}
+        <Link href="/projects" className={link}>
+          projects
+        </Link>
+        .
       </p>
     </section>
   );
