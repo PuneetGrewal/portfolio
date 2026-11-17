@@ -22,6 +22,15 @@ export const metadata = {
 export default function Projects() {
   const personalProjects = [
     {
+      id: 2,
+      title: "Math4Me Parent Portal",
+      date: "2026",
+      github: "https://github.com/PuneetGrewal/math4me-portal",
+      description:
+        "Internal tool for a tutoring centre: staff record attendance and write a report after each class, and the report is texted to every parent who has consented, with email as the fallback. Every write runs through an audited SQL function, staff sign in with enforced TOTP MFA, and the browser never touches the database directly. Over 600 automated tests gate every merge.",
+      tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "RingCentral API", "Resend"],
+    },
+    {
       id: 0,
       title: "Math4Me",
       date: "2025",
