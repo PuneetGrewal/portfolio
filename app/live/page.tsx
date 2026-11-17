@@ -38,23 +38,15 @@ const sites: Site[] = [
   {
     slug: "math4me",
     name: "Math4Me Victoria",
-    category: "Math tutoring centre",
+    category: "Tutoring centre",
     url: "https://math4mevic.com",
     host: "math4mevic.com",
     status: "live",
     description:
-      "Marketing site and parent portal for a math tutoring centre in Victoria, BC, serving grades 6 through 12. Self-hosted, the app is containerized and runs on a single-node k3s Kubernetes cluster on a Mac mini at home, behind Traefik ingress and Cloudflare, with GitHub Actions building the image to GHCR and rolling out a new release on every push to main.",
-    tags: [
-      "SvelteKit",
-      "TypeScript",
-      "Tailwind CSS",
-      "Docker",
-      "Kubernetes",
-      "GitHub Actions",
-      "Cloudflare",
-    ],
+      "Website for a tutoring centre in Victoria, BC, teaching math, English, science and social studies from grade 1 to 12. Drawn as a chalkboard that flips to a whiteboard, with a price board that shows each grade's prices and subjects, and a free-assessment booking form that emails the centre through a server action. Prices, mentors and hours live in typed content files that are checked at build time, with no database.",
+    tags: ["Next.js", "TypeScript", "CSS Modules", "Resend", "Vitest", "Vercel"],
     icon: "/live/math4me/icon.png",
-    screenshot: { src: "/live/math4me/screenshot.webp", height: 2291 },
+    screenshot: { src: "/live/math4me/screenshot.webp", height: 4395 },
   },
   {
     // Not on budwalconstruction.com until the client sends their material, so
