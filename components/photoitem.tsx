@@ -5,14 +5,14 @@ import { Maximize2, X } from 'lucide-react';
 
 export function PhotoItem({ photo }) {
   const [isEnlarged, setIsEnlarged] = useState(false);
-  
+
   useEffect(() => {
     if (isEnlarged) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -23,7 +23,7 @@ export function PhotoItem({ photo }) {
   };
 
   return (
-    <div className="relative rounded-lg group">
+    <div className="relative group">
       {/* The tile doesn't scale while the lightbox is open: the photo shows
           there, and a 2x empty tile widened the page on phones. */}
       <button
@@ -33,16 +33,16 @@ export function PhotoItem({ photo }) {
         className={`
           block w-full text-left
           cursor-pointer
-          transition-all duration-300 transform motion-reduce:transition-none
-          origin-center
-          ${isEnlarged ? '' : 'motion-safe:hover:scale-115 rounded-lg'}
+          border border-border
+          transition-[border-color,box-shadow] duration-300
+          hover:border-phosphor hover:shadow-[0_0_24px_rgb(0_255_65/0.2)]
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',
         }}
         onClick={handleClick}
       >
-        <div className="relative">
+        <div data-mx-media>
           {/* Hide the original image when enlarged */}
           <Image
             src={photo.src || "/placeholder.svg"}
@@ -52,40 +52,39 @@ export function PhotoItem({ photo }) {
             className={`
               object-cover
               ${isEnlarged ? 'hidden' : 'w-full h-64'}
-              rounded-lg
-              transition-all duration-300
+              transition-[filter] duration-300
               group-hover:brightness-90
             `}
             sizes="(min-width: 768px) 280px, 100vw"
           />
-          
+
           {!isEnlarged && (
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Maximize2 className="w-8 h-8 text-white drop-shadow-lg" />
             </div>
           )}
         </div>
-        
-        <div 
+
+        <div
           className={`
-            absolute inset-0 
-            flex flex-col items-center justify-end 
-            p-4 bg-gradient-to-t from-black/70 to-transparent 
+            absolute inset-0
+            flex flex-col items-center justify-end
+            p-4 bg-gradient-to-t from-background/90 to-transparent
             transition-opacity duration-300
             ${isEnlarged ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}
           `}
         >
-          <p className={`text-white font-semibold drop-shadow-md ${isEnlarged ? 'text-sm' : 'text-lg'}`}>
+          <p className={`text-phosphor-hot font-semibold drop-shadow-md ${isEnlarged ? 'text-sm' : 'text-base'}`}>
             {photo.caption}
           </p>
-          <p className={`text-white drop-shadow-md ${isEnlarged ? 'text-xs' : 'text-sm'}`}>
+          <p className={`text-foreground drop-shadow-md ${isEnlarged ? 'text-xs' : 'text-[13px]'}`}>
             {photo.location}
           </p>
         </div>
       </button>
 
       {/* Modal overlay with transition */}
-      <div 
+      <div
         className={`
           fixed inset-0 z-40 bg-black/80 backdrop-blur-xs
           transition-opacity duration-300
@@ -93,7 +92,7 @@ export function PhotoItem({ photo }) {
         `}
         onClick={handleClick} // Close on modal background click
       >
-        <div 
+        <div
           className={`
             fixed inset-0 z-50 flex items-center justify-center
             transition-transform duration-300 motion-reduce:transition-none
@@ -113,21 +112,21 @@ export function PhotoItem({ photo }) {
               >
                 <X className="w-6 h-6" />
               </button>
-              
+
               <div className="relative max-w-[90vw] max-h-[90vh]">
                 <Image
                   src={photo.src || "/placeholder.svg"}
                   alt={photo.caption}
                   width={3024}
                   height={4032}
-                  className="rounded-lg object-contain max-h-[85vh] h-auto w-auto"
+                  className="object-contain max-h-[85vh] h-auto w-auto"
                 />
-                
-                <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/70 to-transparent rounded-b-lg">
-                  <p className="text-white text-lg font-semibold text-center drop-shadow-md">
+
+                <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-background/90 to-transparent">
+                  <p className="text-phosphor-hot text-base font-semibold text-center drop-shadow-md">
                     {photo.caption}
                   </p>
-                  <p className="text-white text-sm text-center drop-shadow-md">
+                  <p className="text-foreground text-[13px] text-center drop-shadow-md">
                     {photo.location}
                   </p>
                 </div>

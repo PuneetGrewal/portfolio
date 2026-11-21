@@ -1,59 +1,55 @@
 @import 'tailwindcss';
 
-/* dark: classes follow a .dark class on <html>. next-themes sets it before the
-   page paints, from the visitor's choice or, by default, their OS setting. */
+/* The site has one theme now and nothing sets .dark. The variant stays so a
+   stray dark: class does nothing instead of following the visitor's OS. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Colours for the shadcn/ui classes (bg-background, text-muted-foreground, …).
-   @theme holds the light values and .dark below swaps in the dark ones. */
+/* One theme. Colours for the shadcn/ui classes (bg-background, bg-card,
+   text-muted-foreground, ...) plus the matrix-only names (text-phosphor,
+   border-line-strong, ...). */
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #171717;
-  --color-card: #ffffff;
-  --color-card-foreground: #171717;
-  --color-primary: #4c97f8;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #0fa295;
-  --color-secondary-foreground: #ffffff;
-  --color-muted-foreground: #525252;
-  --color-accent: #f5f5f5;
-  --color-accent-foreground: #171717;
-  --color-border: #e5e5e5;
-  --color-input: #d4d4d4;
-  --color-ring: #737373;
+  --color-background: #030806;
+  --color-foreground: #c6f4d2;
+  --color-card: #07130c;
+  --color-card-foreground: #c6f4d2;
+  --color-primary: #00ff41;
+  --color-primary-foreground: #021207;
+  --color-secondary: #07130c;
+  --color-secondary-foreground: #7dbf93;
+  --color-muted-foreground: #7dbf93;
+  --color-accent: #00ff41;
+  --color-accent-foreground: #021207;
+  --color-border: #143522;
+  --color-input: #1e5a36;
+  --color-ring: #00ff41;
 
-  /* Tailwind 4 moved its palette to OKLCH, which shifts these a little. Pinned
-     to the values the /live status pills were designed with. */
-  --color-emerald-400: #34d399;
-  --color-emerald-500: #10b981;
-  --color-emerald-600: #059669;
-  --color-amber-400: #fbbf24;
-  --color-amber-500: #f59e0b;
-  --color-amber-600: #d97706;
-}
+  --color-phosphor: #00ff41;
+  --color-phosphor-dim: #17a046;
+  --color-phosphor-hot: #eafff0;
+  --color-line-strong: #1e5a36;
+  --color-ink: #021207;
+  --color-warn: #ffb224;
 
-.dark {
-  color-scheme: dark;
-  --color-background: #111111;
-  --color-foreground: #fefefe;
-  --color-card: #1c1c1c;
-  --color-card-foreground: #e0e0e0;
-  --color-muted-foreground: #a3a3a3;
-  --color-accent: #1c1c1c;
-  --color-accent-foreground: #fefefe;
-  --color-border: #444444;
-  --color-input: #444444;
-  --color-ring: #a3a3a3;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
 }
 
 /* In the base layer so utilities such as border-neutral-800 still win. */
 @layer base {
   html {
-    color-scheme: light;
+    color-scheme: dark;
+    /* Faint scan lines over the whole viewport. */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgb(0 255 65 / 0.03) 0 1px,
+      transparent 1px 4px
+    );
   }
 
   body {
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.7;
   }
 
   *,
@@ -64,8 +60,8 @@
 }
 
 ::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
+  background-color: var(--color-phosphor);
+  color: var(--color-ink);
 }
 
 :root {
@@ -206,25 +202,9 @@ table {
   text-wrap: balance;
 }
 
-/* Live sites: each card rises in on load, and hovering pans its screenshot
-   from the top of the page to the bottom. Return trip is quicker than the
-   trip down, so leaving the card doesn't make you wait. */
-@keyframes site-rise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.site-card {
-  animation: site-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(var(--i, 0) * 90ms);
-}
-
+/* Live sites: hovering a card pans its screenshot from the top of the page to
+   the bottom. Return trip is quicker than the trip down, so leaving the card
+   doesn't make you wait. */
 .site-shot img {
   object-position: 50% 0%;
   transition: object-position 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -238,19 +218,233 @@ table {
   transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+.site-card:hover .site-frame,
 .site-card:has(a:focus-visible) .site-frame {
-  outline: 2px solid currentColor;
+  border-color: var(--color-phosphor);
+  box-shadow: 0 0 28px rgb(0 255 65 / 0.2);
+}
+
+.site-card:has(a:focus-visible) .site-frame {
+  outline: 2px solid var(--color-phosphor);
   outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-card {
-    animation: none;
-  }
-
   .site-shot img,
   .site-card:hover .site-shot img {
     object-position: 50% 0%;
     transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Matrix effect layer. components/matrix/controller.tsx drives all of it.
+   --------------------------------------------------------------------------- */
+
+/* Holds set by the inline boot script in app/layout.tsx before the first
+   paint, and lifted by the controller (or by the script's own 4s failsafe).
+   "intro": first load of a visit, black screen until the rain takes over.
+   "page": later loads, page content hidden until the quick decode starts. */
+html[data-mx-wait='intro']::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: var(--color-background);
+}
+
+/* A cursor in the corner, so a slow connection shows a terminal waiting and
+   not a dead screen. */
+html[data-mx-wait='intro']::after {
+  content: '';
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 9998;
+  width: 9px;
+  height: 18px;
+  background: var(--color-phosphor);
+  animation: mx-blink 1.1s steps(1, end) infinite;
+}
+
+html[data-mx-wait='page'] [data-mx-page] {
+  visibility: hidden;
+}
+
+/* The rain. Opaque so the page underneath can be scrambled unseen, then it
+   fades and the digits left behind resolve into the real text. */
+.mx-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-background);
+  pointer-events: none;
+  transition: opacity var(--mx-fade, 456ms) ease-out;
+}
+
+.mx-rain[data-replay] {
+  animation: mx-rain-in 0.15s ease-out backwards;
+}
+
+.mx-rain[data-fading] {
+  opacity: 0;
+}
+
+.mx-rain canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes mx-rain-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Decode colours. The controller swaps characters inside the real text nodes
+   and marks the unresolved run and the leading character with the CSS Custom
+   Highlight API, so no markup is added. Browsers without it show the digits
+   in the text's own colour. */
+::highlight(mx-rest) {
+  color: var(--color-phosphor-dim);
+}
+
+::highlight(mx-head) {
+  color: var(--color-phosphor-hot);
+  text-shadow: 0 0 8px var(--color-phosphor);
+}
+
+/* Media: a wrapper marked data-mx-media is covered until the controller adds
+   data-mx-in, then the cover is wiped away top to bottom behind a scan line.
+   The image itself is never clipped or hidden: browsers skip loading a lazy
+   image they consider invisible. The cover only exists once the controller is
+   running (data-mx-js), so nothing stays covered without JavaScript. */
+[data-mx-media] {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-mx-media]::before,
+[data-mx-media]::after {
+  content: '';
+  position: absolute;
+  display: none;
+  pointer-events: none;
+}
+
+html[data-mx-js] [data-mx-media]::before,
+html[data-mx-js] [data-mx-media]::after {
+  display: block;
+}
+
+[data-mx-media]::before {
+  inset: 0;
+  z-index: 1;
+  background: var(--color-card);
+}
+
+[data-mx-media]::after {
+  inset: 0 0 auto;
+  z-index: 2;
+  height: 2px;
+  background: var(--color-phosphor);
+  box-shadow: 0 0 12px 2px rgb(0 255 65 / 0.8);
+  opacity: 0;
+}
+
+[data-mx-media][data-mx-in]::before {
+  animation: mx-uncover var(--mx-scan, 0.9s) cubic-bezier(0.3, 0.6, 0.3, 1)
+    forwards;
+}
+
+[data-mx-media][data-mx-in]::after {
+  animation: mx-scan var(--mx-scan, 0.9s) cubic-bezier(0.3, 0.6, 0.3, 1) both;
+}
+
+[data-mx-media='slow'] {
+  --mx-scan: 1.1s;
+}
+
+@keyframes mx-uncover {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+@keyframes mx-scan {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Page titles get a prompt and a block cursor, section headings a "##".
+   Generated content, so it is never part of the text that gets decoded; the
+   empty alt text keeps screen readers from announcing it. */
+.mx-title {
+  color: var(--color-phosphor);
+  text-shadow: 0 0 14px rgb(0 255 65 / 0.45);
+}
+
+.mx-title::before {
+  content: '> ';
+  content: '> ' / '';
+  color: var(--color-phosphor-dim);
+  text-shadow: none;
+}
+
+.mx-title::after {
+  content: '';
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 8px;
+  vertical-align: text-bottom;
+  background: var(--color-phosphor);
+  box-shadow: 0 0 10px rgb(0 255 65 / 0.7);
+  animation: mx-blink 1.1s steps(1, end) infinite;
+}
+
+.mx-section {
+  color: var(--color-phosphor);
+}
+
+.mx-section::before {
+  content: '## ';
+  content: '## ' / '';
+  color: var(--color-phosphor-dim);
+}
+
+@keyframes mx-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-mx-js] [data-mx-media]::before,
+  html[data-mx-js] [data-mx-media]::after {
+    display: none;
+  }
+
+  .mx-title::after {
+    animation: none;
   }
 }

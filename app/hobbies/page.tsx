@@ -24,17 +24,17 @@ export const metadata = {
 export default function Hobbies() {
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Hobbies</h1>
-      
+      <h1 className="mx-title font-semibold text-2xl mb-8">My Hobbies</h1>
+
       {/* Tennis Section */}
       <section className="mb-10">
-        <h2 className="font-semibold text-xl mb-4 tracking-tighter">Tennis</h2>
+        <h2 className="mx-section font-semibold text-xl mb-4">Tennis</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <VideoItem 
+          <VideoItem
             src="/videos/tennis1.mp4"
             title="Tennis Video 1"
           />
-          <VideoItem 
+          <VideoItem
             src="/videos/tennis2.mp4"
             title="Tennis Video 2"
           />
@@ -43,7 +43,7 @@ export default function Hobbies() {
 
       {/* Photography Section */}
       <section className="mb-10">
-        <h2 className="font-semibold text-xl mb-4 tracking-tighter">Photography</h2>
+        <h2 className="mx-section font-semibold text-xl mb-4">Photography</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {photos.map((photo, index) => (
             <PhotoItem key={index} photo={photo} />
@@ -53,7 +53,7 @@ export default function Hobbies() {
 
       {/* Hiking Section */}
       <section className="mb-10">
-        <h2 className="font-semibold text-xl mb-4 tracking-tighter">Hiking</h2>
+        <h2 className="mx-section font-semibold text-xl mb-4">Hiking</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {mountains.map((mountain, index) => (
             <MountainItem key={index} mountain={mountain} />

@@ -11,21 +11,21 @@ export default function Notes() {
 
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Notes</h1>
+      <h1 className="mx-title font-semibold text-2xl mb-8">Notes</h1>
 
-      <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+      <p className="mb-8 text-muted-foreground">
         {`Handwritten notes I've made during my time teaching at Math4Me. Notes are free to use and distribute.`}
       </p>
 
       {groups.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700 p-8 text-center text-neutral-600 dark:text-neutral-400">
+        <div className="border border-dashed border-line-strong p-8 text-center text-muted-foreground">
           No notes posted yet — check back soon.
         </div>
       ) : (
         groups.map((group) => (
           <div key={group.subject ?? 'other'}>
             {group.subject && (
-              <h2 className="font-semibold text-xl mb-8 tracking-tighter">
+              <h2 className="mx-section font-semibold text-xl mb-8">
                 {group.subject}
               </h2>
             )}

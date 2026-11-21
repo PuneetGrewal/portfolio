@@ -1,12 +1,11 @@
 import './global.css'
-import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
+import type { Metadata, Viewport } from 'next'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from '@/components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from '@/components/footer'
-import { ThemeProvider } from '@/components/theme-provider'
+import { MatrixController } from '@/components/matrix/controller'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
@@ -37,6 +36,19 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: '#030806',
+  colorScheme: 'dark',
+}
+
+// Runs before the first paint, ahead of React. On the first load of a visit it
+// holds a black screen until the intro takes over; on later loads it keeps the
+// page content hidden until the quick decode starts. The matching CSS is in
+// global.css. Visitors who ask for reduced motion get neither, and both holds
+// lift after 4s whatever happens, so a script error can never leave a blank
+// page.
+const boot = `(function(){try{var d=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var s;try{s=sessionStorage.getItem('mx-intro')}catch(e){s='1'}d.setAttribute('data-mx-wait',s?'page':'intro');setTimeout(function(){d.removeAttribute('data-mx-wait')},4000)}catch(e){}})()`
+
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
 export default function RootLayout({
@@ -44,34 +56,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // suppressHydrationWarning: next-themes sets the theme class and
-  // color-scheme on <html> before React hydrates, so they differ from the
-  // server HTML on purpose.
+  // suppressHydrationWarning: the boot script sets data-mx-wait on <html>
+  // before React hydrates, so it differs from the server HTML on purpose.
   return (
     <html
       lang="en"
       suppressHydrationWarning
       className={cx(
         'bg-background text-foreground', // Using the colors defined in your global.css
-        GeistSans.variable,
         GeistMono.variable
       )}
     >
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-            <Navbar />
-            {children}
-            <Footer />
-            <Analytics />
-            <SpeedInsights />
-          </main>
-        </ThemeProvider>
+        <script dangerouslySetInnerHTML={{ __html: boot }} />
+        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+          <Navbar />
+          {/* The part that changes from page to page. Later pages decode
+              only this, not the nav or footer. */}
+          <div data-mx-page>{children}</div>
+          <Footer />
+          <Analytics />
+          <SpeedInsights />
+        </main>
+        <MatrixController />
       </body>
     </html>
   )

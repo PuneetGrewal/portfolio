@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 const link =
-  "underline underline-offset-2 decoration-neutral-400 hover:decoration-neutral-900 dark:hover:decoration-neutral-100";
+  "text-phosphor underline underline-offset-[3px] decoration-phosphor-dim hover:decoration-phosphor hover:[text-shadow:0_0_10px_rgb(0_255_65/0.5)]";
 
 export default function Page() {
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
+      <h1 className="mx-title mb-8 text-2xl font-semibold">
         Hi, I'm Puneet
       </h1>
       <p className="mb-4">

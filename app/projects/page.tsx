@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import {
   GitHubLogoIcon,
@@ -19,8 +12,69 @@ export const metadata = {
   description: "Look at some of my projects.",
 };
 
+type Project = {
+  id: number;
+  title: string;
+  date?: string;
+  github?: string;
+  description: string;
+  tags: string[];
+};
+
+// One card per row: at this column width, two columns of monospace text leave
+// about 27 characters a line.
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Card className="flex flex-col gap-4 p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <CardTitle className="text-base leading-6 tracking-normal text-phosphor">
+          {project.title}
+        </CardTitle>
+        {project.date && (
+          <div className="flex items-center text-[13px] leading-6 text-muted-foreground">
+            <CalendarIcon className="h-3.5 w-3.5 mr-2" />
+            <span>{project.date}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-wrap gap-2 w-full">
+        {project.tags.map((tag, index) => (
+          <Badge
+            key={index}
+            variant="outline"
+            className="rounded-none border-line-strong px-2 py-px text-xs font-normal leading-5 text-muted-foreground"
+          >
+            {tag}
+          </Badge>
+        ))}
+      </div>
+
+      <p
+        dangerouslySetInnerHTML={{ __html: project.description }}
+        className="text-sm leading-[1.65]"
+      />
+
+      {project.github && (
+        <div className="flex flex-wrap gap-2 w-full">
+          <Button variant="outline" size="sm" asChild className="h-11 min-w-11 sm:h-8 sm:min-w-0">
+            <Link
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GitHubLogoIcon />
+              Source Code
+            </Link>
+          </Button>
+        </div>
+      )}
+    </Card>
+  );
+}
+
 export default function Projects() {
-  const personalProjects = [
+  const personalProjects: Project[] = [
     {
       id: 2,
       title: "Math4Me Parent Portal",
@@ -35,7 +89,7 @@ export default function Projects() {
       title: "Math4Me",
       date: "2025",
       github: "https://github.com/PuneetGrewal/Math4Me",
-      description: 
+      description:
         "An educational web application designed to help students practice and improve their math skills. The platform provides interactive problem-solving exercises and immediate feedback to enhance learning experience.",
       tags: ["Next.js", "Supabase", "JavaScript", "TailwindCSS"],
     },
@@ -50,7 +104,7 @@ export default function Projects() {
     },
   ];
 
-  const courseworkProjects = [
+  const courseworkProjects: Project[] = [
     {
       id: 1,
       title: "Database Systems",
@@ -72,101 +126,17 @@ export default function Projects() {
   return (
     <section>
       <h1 className="sr-only">Projects</h1>
-      <h2 className="font-semibold text-2xl mb-8 tracking-tighter">Personal</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <h2 className="mx-section font-semibold text-2xl mb-8">Personal</h2>
+      <div className="flex flex-col gap-6 mb-8">
         {personalProjects.map((project) => (
-          <Card key={project.id} className="flex flex-col shadow-md">
-            <CardHeader>
-              <CardTitle>{project.title}</CardTitle>
-              <CardDescription className="flex flex-col gap-2">
-                <div className="flex items-center text-neutral-600 dark:text-neutral-400">
-                  <CalendarIcon className="h-4 w-4 mr-2" />
-                  <span>{project.date}</span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 w-full">
-                  {project.tags.map((tag, index) => (
-                    <Badge 
-                      key={index} 
-                      variant="secondary" 
-                      className="bg-neutral-100 text-neutral-800 hover:bg-neutral-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-800"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p
-                dangerouslySetInnerHTML={{ __html: project.description }}
-                className="text-sm text-muted-foreground"
-              />
-            </CardContent>
-            <CardFooter className="mt-auto flex flex-col gap-4">
-              <div className="flex flex-wrap gap-2 w-full">
-                {project.github && (
-                  <Button variant="outline" size="sm" asChild className="h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200">
-                    <Link
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <GitHubLogoIcon />
-                      Source Code
-                    </Link>
-                  </Button>
-                )}
-              </div>
-            </CardFooter>
-          </Card>
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
 
-      <h2 className="font-semibold text-2xl mb-8 tracking-tighter">
-        Coursework
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <h2 className="mx-section font-semibold text-2xl mb-8">Coursework</h2>
+      <div className="flex flex-col gap-6 mb-8">
         {courseworkProjects.map((project) => (
-          <Card key={project.id} className="flex flex-col h-full shadow-md">
-            <CardHeader>
-              <CardTitle>{project.title}</CardTitle>
-
-              <CardDescription className="flex flex-wrap gap-2 w-full">
-                {project.tags.map((tag, index) => (
-                  <Badge 
-                    key={index} 
-                    variant="secondary" 
-                    className="bg-neutral-100 text-neutral-800 hover:bg-neutral-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-800"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grow">
-              <p
-                dangerouslySetInnerHTML={{ __html: project.description }}
-                className="text-sm text-muted-foreground"
-              />
-            </CardContent>
-            <CardFooter className="mt-auto flex flex-col gap-4">
-              <div className="flex flex-wrap gap-2 w-full">
-                {project.github && (
-                  <Button variant="outline" size="sm" asChild className="h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200">
-                    <Link
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <GitHubLogoIcon />
-                      Source Code
-                    </Link>
-                  </Button>
-                )}
-              </div>
-            </CardFooter>
-          </Card>
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
     </section>

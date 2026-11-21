@@ -74,18 +74,18 @@ const scrollDuration = (height: number) =>
 function Status({ status }: { status: Site["status"] }) {
   if (status === "preview") {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
-        <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+      <span className="inline-flex items-center gap-1.5 border border-warn/35 bg-warn/10 px-2 py-px text-xs font-medium leading-5 text-warn">
+        <span className="h-1.5 w-1.5 rounded-full bg-warn" />
         Launching soon
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+    <span className="inline-flex items-center gap-1.5 border border-line-strong bg-phosphor/10 px-2 py-px text-xs font-medium leading-5 text-phosphor">
       <span className="relative flex h-1.5 w-1.5">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping" />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+        <span className="absolute inline-flex h-full w-full rounded-full bg-phosphor opacity-75 motion-safe:animate-ping" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-phosphor" />
       </span>
       Live
     </span>
@@ -94,25 +94,22 @@ function Status({ status }: { status: Site["status"] }) {
 
 function SiteCard({ site, index }: { site: Site; index: number }) {
   return (
-    <article
-      className="site-card group relative"
-      style={{ "--i": index } as CSSProperties}
-    >
-      <div className="site-frame overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 shadow-xs transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-900">
-        <div className="flex h-9 items-center gap-3 border-b border-neutral-200 px-3.5 dark:border-neutral-800">
+    <article className="site-card group relative">
+      <div className="site-frame overflow-hidden border border-border bg-card transition-[border-color,box-shadow] duration-300">
+        <div className="flex h-9 items-center gap-3 border-b border-border px-3.5">
           <span className="flex shrink-0 gap-1.5" aria-hidden>
-            <span className="h-2.5 w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
-            <span className="h-2.5 w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
-            <span className="h-2.5 w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+            <span className="h-2.5 w-2.5 bg-line-strong" />
+            <span className="h-2.5 w-2.5 bg-line-strong" />
+            <span className="h-2.5 w-2.5 bg-line-strong" />
           </span>
-          <span className="flex-1 truncate text-center font-mono text-xs text-neutral-500">
+          <span className="flex-1 truncate text-center font-mono text-xs text-muted-foreground">
             {site.host}
           </span>
           {/* Balances the dots so the address stays centred. */}
           <span className="w-[42px] shrink-0" aria-hidden />
         </div>
 
-        <div className="site-shot aspect-[16/10] overflow-hidden bg-white">
+        <div data-mx-media className="site-shot aspect-[16/10] overflow-hidden bg-background">
           <img
             src={site.screenshot.src}
             alt={`The ${site.name} home page`}
@@ -136,17 +133,17 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
           alt=""
           width={44}
           height={44}
-          className="h-11 w-11 shrink-0 rounded-xl ring-1 ring-black/10 dark:ring-white/10"
+          className="h-11 w-11 shrink-0 border border-border"
         />
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <h2 className="text-lg font-semibold tracking-tight">
+            <h2 className="text-lg font-semibold">
               <a
                 href={site.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="outline-hidden"
+                className="text-phosphor outline-hidden group-hover:[text-shadow:0_0_12px_rgb(0_255_65/0.6)]"
               >
                 {site.name}
                 {site.status === "preview" && (
@@ -158,16 +155,16 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
             </h2>
             <Status status={site.status} />
           </div>
-          <p className="mt-0.5 text-sm text-neutral-500">{site.category}</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">{site.category}</p>
         </div>
 
         <ArrowUpRight
           aria-hidden
-          className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-900 dark:group-hover:text-neutral-100"
+          className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-phosphor"
         />
       </div>
 
-      <p className="mt-4 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+      <p className="mt-4 text-sm leading-[1.65]">
         {site.description}
       </p>
 
@@ -175,7 +172,7 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
         {site.tags.map((tag) => (
           <li
             key={tag}
-            className="rounded-full border border-neutral-200 px-2.5 py-0.5 font-mono text-[11px] text-neutral-600 dark:border-neutral-800 dark:text-neutral-400"
+            className="border border-line-strong px-2.5 py-px font-mono text-[11px] leading-[18px] text-muted-foreground"
           >
             {tag}
           </li>
@@ -188,9 +185,9 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
 export default function Live() {
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Live Sites</h1>
+      <h1 className="mx-title font-semibold text-2xl mb-8">Live Sites</h1>
 
-      <p className="mb-12 text-neutral-600 dark:text-neutral-400">
+      <p className="mb-12 text-muted-foreground">
         {`Sites I've built that are running in production, plus one about to launch.`}
       </p>
 

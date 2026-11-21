@@ -6,8 +6,7 @@ import { Download, Expand, FileText, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { Note } from '@/lib/notes'
 
-const actionButton =
-  'h-11 min-w-11 sm:h-8 sm:min-w-0 hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200'
+const actionButton = 'h-11 min-w-11 sm:h-8 sm:min-w-0'
 
 // One spring for the card-to-lightbox morph and back, so opening and closing
 // feel like the same gesture.
@@ -55,7 +54,8 @@ export function NoteItem({ note }: { note: Note }) {
             type="button"
             onClick={open}
             aria-label={`Preview ${note.title}`}
-            className="group relative block w-full overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800"
+            data-mx-media
+            className="group relative block w-full cursor-pointer border border-border bg-card transition-[border-color,box-shadow] duration-300 hover:border-phosphor hover:shadow-[0_0_24px_rgb(0_255_65/0.2)]"
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.985 }}
             transition={morph}
@@ -75,21 +75,21 @@ export function NoteItem({ note }: { note: Note }) {
             </div>
           </motion.button>
         ) : (
-          <div className="flex aspect-[1/1.414] w-full items-center justify-center rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700">
-            <FileText className="h-8 w-8 text-neutral-500" />
+          <div className="flex aspect-[1/1.414] w-full items-center justify-center border border-dashed border-line-strong">
+            <FileText className="h-8 w-8 text-muted-foreground" />
           </div>
         )}
 
         <div className="mt-3 flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h3 className="font-medium tracking-tight text-balance">
+            <h3 className="font-medium text-balance">
               {note.title}
             </h3>
-            <p className="mt-0.5 text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="mt-0.5 text-[13px] text-muted-foreground">
               {details.join(' · ')}
             </p>
             {note.description && (
-              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="mt-2 text-sm text-muted-foreground">
                 {note.description}
               </p>
             )}
@@ -147,7 +147,7 @@ export function NoteItem({ note }: { note: Note }) {
                     initial={isFirst ? undefined : { opacity: 0, y: 12 }}
                     animate={isFirst ? undefined : { opacity: 1, y: 0 }}
                     transition={isFirst ? morph : { delay: 0.15 }}
-                    className="relative w-full overflow-hidden rounded-xl bg-white shadow-2xl"
+                    className="relative w-full overflow-hidden bg-white shadow-2xl"
                   >
                     {/* The card's thumbnail scales up first so the morph has
                         something to show, then the full render fades in. */}
@@ -187,7 +187,7 @@ export function NoteItem({ note }: { note: Note }) {
                   variant="outline"
                   size="sm"
                   asChild
-                  className="h-11 sm:h-8 border-white/30 bg-transparent text-white hover:bg-white hover:text-black focus-visible:ring-white"
+                  className="h-11 sm:h-8"
                 >
                   <a href={note.file} download>
                     <Download />

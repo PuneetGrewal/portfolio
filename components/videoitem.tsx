@@ -53,14 +53,15 @@ export function VideoItem({ src, title }) {
   }, [isEnlarged]);
 
   return (
-    <div className="relative aspect-video rounded-lg group">
+    <div className="relative aspect-video group">
       <button
         ref={tileRef}
         type="button"
         aria-label={`Enlarge ${title}`}
         aria-haspopup="dialog"
         aria-expanded={isEnlarged}
-        className="block w-full text-left cursor-pointer transition-all duration-300 origin-center motion-safe:hover:scale-120 motion-reduce:transition-none"
+        data-mx-media
+        className="block h-full w-full text-left cursor-pointer border border-border transition-[border-color,box-shadow] duration-300 hover:border-phosphor hover:shadow-[0_0_24px_rgb(0_255_65/0.2)]"
         onClick={() => setIsEnlarged(true)}
       >
         <video
@@ -69,7 +70,7 @@ export function VideoItem({ src, title }) {
           muted
           loop
           playsInline
-          className="w-full h-full object-cover rounded-lg transition-[filter] duration-300 group-hover:brightness-90"
+          className="w-full h-full object-cover transition-[filter] duration-300 group-hover:brightness-90"
           src={src}
         />
 
@@ -106,7 +107,7 @@ export function VideoItem({ src, title }) {
               loop
               playsInline
               src={src}
-              className="max-h-[85vh] max-w-[90vw] rounded-lg shadow-xl"
+              className="max-h-[85vh] max-w-[90vw] shadow-xl"
             />
           </div>,
           document.body,
