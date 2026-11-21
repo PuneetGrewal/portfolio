@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { BouncingPs } from '@/components/bouncing-ps'
+import { RainBackdrop } from '@/components/matrix/rain-backdrop'
 
 export default function NotFound() {
   return (
     <section className="relative">
+      <RainBackdrop />
       <BouncingPs />
 
       <p className="mb-2 text-8xl font-bold text-phosphor">404</p>
