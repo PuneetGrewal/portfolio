@@ -227,6 +227,46 @@ Rows 1 to 16 passed in the sandbox in headless Chromium at 1280x800 and 390x844,
 - The open items in `docs/HANDOFF.md` (shared lightbox, home-page next step, footer email and LinkedIn links).
 - The README, which is still the template's.
 
+## 10. Addendum (2026-11-21): light theme, toggle, 404 rain
+
+Added after the patch was applied, at Puneet's request. Sections 1 to 9 still describe the dark theme, which stays the default; Appendix A is the original patch and does not include this.
+
+- **Two themes.**
+  - Dark (sections 1 and 3) is the default, and what shows without JavaScript; the OS setting does not change it.
+  - The toggle at the end of the nav switches to light. next-themes 0.4.4 (the version `main` has) remembers the choice in `localStorage["theme"]` and puts a `light` or `dark` class on `<html>`.
+- **Light tokens** (`.light` in `app/global.css`). Contrast on white is in brackets:
+
+| Token | Light |
+|---|---|
+| `background` | `#ffffff` |
+| `card` | `#f2f8f4` |
+| `foreground` | `#07160c` (18.6:1) |
+| `muted-foreground` | `#3b6148` (7.0:1) |
+| `phosphor` | `#007a2c` (5.5:1, and white `ink` on it is 5.5:1) |
+| `phosphor-dim` | `#4f9c69` (3.3:1, decorative only) |
+| `phosphor-hot` | `#002b0f` |
+| `border`, `line-strong` | `#d3e6d9`, `#9ac4a7` |
+| `ink` | `#ffffff` |
+| `warn` | `#a35400` |
+
+- **Glows.** No glow colour is hard-coded any more.
+  - Text glows use `--mx-glow`: `#00ff41` in dark, transparent in light, since a green glow on white reads as blur.
+  - Box halos and scan lines mix from `--color-phosphor`.
+  - Dark renders as before.
+- **Toggle.**
+  - A click plays the intro again: `mx:replay`, with a `ReplayRequest` from `controller.tsx` as the event detail.
+  - The theme switches 10% into the replay, while the rain covers the page, so the page is never seen changing colour. The rain then fades onto the new theme and the text decodes.
+  - A replay skipped before that point still switches.
+  - With reduced motion, the theme switches with no animation.
+  - During the first-load intro, a tap on the toggle only ends the intro (section 4, decode rule 6); the next tap switches.
+- **Focus.** `<main>` going inert drops focus. When the intro ends, the controller returns focus to the element that had it: the toggle, or "replay intro".
+- **404.** `components/matrix/rain-backdrop.tsx` keeps the rain running behind the bouncing Ps at 35% opacity.
+  - It runs in the rain's transparent mode, where trails fade to clear rather than to the page colour.
+  - It restarts on resize and on a theme change.
+  - It stays blank with reduced motion.
+  - The Ps use the theme variables, so they follow the theme too.
+- **Tuning.** `rain()` and `GLYPHS` moved to `components/matrix/rain.ts`. `INTRO_MS` and `PAGE_MS` stay at the top of `controller.tsx`.
+
 ## Appendix A: the patch
 
 Against `main` at `f334e2e`, after step 1 of section 5. 22 files, 1067 insertions, 340 deletions.
