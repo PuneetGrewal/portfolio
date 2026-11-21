@@ -55,7 +55,7 @@ export function NoteItem({ note }: { note: Note }) {
             onClick={open}
             aria-label={`Preview ${note.title}`}
             data-mx-media
-            className="group relative block w-full cursor-pointer border border-border bg-card transition-[border-color,box-shadow] duration-300 hover:border-phosphor hover:shadow-[0_0_24px_rgb(0_255_65/0.2)]"
+            className="group relative block w-full cursor-pointer border border-border bg-card transition-[border-color,box-shadow] duration-300 hover:border-phosphor hover:shadow-[0_0_24px_color-mix(in_srgb,var(--color-phosphor)_20%,transparent)]"
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.985 }}
             transition={morph}

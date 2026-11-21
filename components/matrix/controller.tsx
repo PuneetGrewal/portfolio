@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { GLYPHS, rain } from './rain'
 
 // Runs the matrix effects for the whole site from one place, so no page has to
 // know about them:
@@ -18,7 +19,6 @@ import { usePathname } from 'next/navigation'
 const INTRO_MS = 1900
 /** Length of the decode on every later page. */
 const PAGE_MS = 500
-const GLYPHS = '0123456789'
 const SESSION_KEY = 'mx-intro'
 /** Text inside these is left alone. */
 const SKIP =
@@ -284,73 +284,6 @@ function run(targets: Target[], onDone: () => void) {
   }
 }
 
-/** Falling digits on a canvas. Returns a stop function. */
-function rain(canvas: HTMLCanvasElement) {
-  const context = canvas.getContext('2d')
-  if (!context) return () => {}
-
-  const ratio = Math.min(window.devicePixelRatio || 1, 2)
-  const width = window.innerWidth
-  const height = window.innerHeight
-  const size = width < 640 ? 14 : 16
-  const columns = Math.ceil(width / size)
-  const rows = Math.ceil(height / size)
-  const styles = getComputedStyle(document.documentElement)
-  const background = styles.getPropertyValue('--color-background').trim()
-  const phosphor = styles.getPropertyValue('--color-phosphor').trim()
-  const hot = styles.getPropertyValue('--color-phosphor-hot').trim()
-
-  canvas.width = width * ratio
-  canvas.height = height * ratio
-  context.scale(ratio, ratio)
-  context.font = `500 ${size}px ${getComputedStyle(document.body).fontFamily}`
-  context.textBaseline = 'top'
-  context.fillStyle = background
-  context.fillRect(0, 0, width, height)
-
-  // Each column is one falling drop: its row, and the digit at its head.
-  const drops = Array.from({ length: columns }, () => ({
-    row: Math.floor(Math.random() * rows * 2) - rows,
-    glyph: '0',
-  }))
-
-  const step = () => {
-    // A translucent wash each step is what leaves the fading trails.
-    context.globalAlpha = 0.14
-    context.fillStyle = background
-    context.fillRect(0, 0, width, height)
-    context.globalAlpha = 1
-
-    drops.forEach((drop, column) => {
-      const x = column * size
-
-      // The previous head becomes part of the trail.
-      context.fillStyle = phosphor
-      context.fillText(drop.glyph, x, drop.row * size)
-
-      drop.row++
-      drop.glyph = GLYPHS[(Math.random() * GLYPHS.length) | 0]
-      context.fillStyle = hot
-      context.fillText(drop.glyph, x, drop.row * size)
-
-      if (drop.row > rows && Math.random() > 0.9) drop.row = -1
-    })
-  }
-
-  // Already raining on the first frame the visitor sees.
-  for (let i = 0; i < 28; i++) step()
-
-  let frameId = 0
-  let tick = 0
-  const frame = () => {
-    if (tick++ % 2 === 0) step()
-    frameId = requestAnimationFrame(frame)
-  }
-  frameId = requestAnimationFrame(frame)
-
-  return () => cancelAnimationFrame(frameId)
-}
-
 let stopMedia = () => {}
 
 /** Reveals each [data-mx-media] wrapper once it is on screen and its image has
@@ -427,16 +360,28 @@ function decodePage() {
 // double mount can't start it twice or cut it short.
 let intro: { path: string; finish: () => void } | null = null
 
-function startIntro(path: string, replay = false) {
-  if (intro) return
+/** What the theme toggle sends with mx:replay. onCovered runs once the rain
+    hides the page, so the theme can change out of sight; accepted is set when
+    the intro starts, and tells the toggle that onCovered will run. The footer's
+    replay button sends a plain event with no detail. */
+export type ReplayRequest = { onCovered?: () => void; accepted: boolean }
+
+/** Returns whether the intro started. */
+function startIntro(path: string, replay = false, onCovered?: () => void) {
+  if (intro) return false
   cancelPage()
 
   const html = document.documentElement
   const main = document.querySelector('main')
   if (!main) {
     html.removeAttribute('data-mx-wait')
-    return
+    return false
   }
+
+  // Making <main> inert takes focus away from whatever had it inside, such as
+  // the theme toggle. It goes back at the end so a keyboard user keeps their
+  // place.
+  const focused = document.activeElement
 
   try {
     sessionStorage.setItem(SESSION_KEY, '1')
@@ -470,14 +415,30 @@ function startIntro(path: string, replay = false) {
     overlay.remove()
   }
 
+  const cover = () => {
+    const callback = onCovered
+    onCovered = undefined
+    callback?.()
+  }
+
   const finish = () => {
     if (finished) return
     finished = true
+    // Skipped before the page was covered: still do what was asked.
+    cover()
     timers.forEach((timer) => window.clearTimeout(timer))
     skipEvents.forEach((name) => window.removeEventListener(name, finish, true))
     cancelDecode()
     removeOverlay()
     main.inert = false
+    if (
+      focused instanceof HTMLElement &&
+      focused !== document.body &&
+      focused.isConnected &&
+      document.activeElement === document.body
+    ) {
+      focused.focus({ preventScroll: true })
+    }
     observeMedia()
     intro = null
   }
@@ -497,8 +458,17 @@ function startIntro(path: string, replay = false) {
     timers.push(window.setTimeout(callback, INTRO_MS * fraction))
 
   if (replay) {
-    // The page is in view: wait for the overlay to cover it first.
-    after(0.1, decode)
+    // The page is in view: wait for the overlay to cover it first. Its fade-in
+    // can start a frame or two late, so this goes by the end of the fade, with
+    // a timer in case the animation never runs.
+    const covered = () => {
+      cover()
+      decode()
+    }
+    overlay.addEventListener('animationend', (event) => {
+      if (event.target === overlay) covered()
+    })
+    after(0.3, covered)
   } else if (document.fonts && document.fonts.status !== 'loaded') {
     document.fonts.ready.then(decode)
     after(0.35, decode)
@@ -516,6 +486,7 @@ function startIntro(path: string, replay = false) {
   )
 
   intro = { path, finish }
+  return true
 }
 
 export function MatrixController() {
@@ -550,7 +521,12 @@ export function MatrixController() {
   }, [pathname])
 
   useEffect(() => {
-    const replay = () => startIntro(pathname, true)
+    const replay = (event: Event) => {
+      const request = (event as CustomEvent<ReplayRequest | undefined>).detail
+      if (startIntro(pathname, true, request?.onCovered) && request) {
+        request.accepted = true
+      }
+    }
     window.addEventListener('mx:replay', replay)
     return () => window.removeEventListener('mx:replay', replay)
   }, [pathname])

@@ -18,7 +18,7 @@ export function MountainItem({ mountain }) {
           border border-border
           transition-all duration-300 transform motion-reduce:transition-none
           origin-center
-          ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:border-phosphor hover:shadow-[0_0_24px_rgb(0_255_65/0.2)]'}
+          ${isEnlarged ? 'scale-[2.0] z-20' : 'hover:border-phosphor hover:shadow-[0_0_24px_color-mix(in_srgb,var(--color-phosphor)_20%,transparent)]'}
         `}
         style={{
           position: isEnlarged ? 'relative' : 'static',

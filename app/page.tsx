@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const link =
-  "text-phosphor underline underline-offset-[3px] decoration-phosphor-dim hover:decoration-phosphor hover:[text-shadow:0_0_10px_rgb(0_255_65/0.5)]";
+  "text-phosphor underline underline-offset-[3px] decoration-phosphor-dim hover:decoration-phosphor hover:[text-shadow:0_0_10px_color-mix(in_srgb,var(--mx-glow)_50%,transparent)]";
 
 export default function Page() {
   return (

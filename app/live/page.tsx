@@ -143,7 +143,7 @@ function SiteCard({ site, index }: { site: Site; index: number }) {
                 href={site.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-phosphor outline-hidden group-hover:[text-shadow:0_0_12px_rgb(0_255_65/0.6)]"
+                className="text-phosphor outline-hidden group-hover:[text-shadow:0_0_12px_color-mix(in_srgb,var(--mx-glow)_60%,transparent)]"
               >
                 {site.name}
                 {site.status === "preview" && (

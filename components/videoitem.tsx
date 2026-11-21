@@ -61,7 +61,7 @@ export function VideoItem({ src, title }) {
         aria-haspopup="dialog"
         aria-expanded={isEnlarged}
         data-mx-media
-        className="block h-full w-full text-left cursor-pointer border border-border transition-[border-color,box-shadow] duration-300 hover:border-phosphor hover:shadow-[0_0_24px_rgb(0_255_65/0.2)]"
+        className="block h-full w-full text-left cursor-pointer border border-border transition-[border-color,box-shadow] duration-300 hover:border-phosphor hover:shadow-[0_0_24px_color-mix(in_srgb,var(--color-phosphor)_20%,transparent)]"
         onClick={() => setIsEnlarged(true)}
       >
         <video

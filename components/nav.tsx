@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const navItems = {
   '/': {
@@ -44,12 +45,13 @@ export function Navbar() {
                   key={path}
                   href={path}
                   aria-current={isCurrent ? 'page' : undefined}
-                  className="flex align-middle relative px-2.5 py-2.5 my-0.5 sm:px-2 sm:py-1 sm:m-1 text-muted-foreground transition-colors hover:text-phosphor hover:[text-shadow:0_0_10px_rgb(0_255_65/0.55)] aria-[current=page]:bg-phosphor aria-[current=page]:font-semibold aria-[current=page]:text-ink aria-[current=page]:[text-shadow:none]"
+                  className="flex align-middle relative px-2.5 py-2.5 my-0.5 sm:px-2 sm:py-1 sm:m-1 text-muted-foreground transition-colors hover:text-phosphor hover:[text-shadow:0_0_10px_color-mix(in_srgb,var(--mx-glow)_55%,transparent)] aria-[current=page]:bg-phosphor aria-[current=page]:font-semibold aria-[current=page]:text-ink aria-[current=page]:[text-shadow:none]"
                 >
                   {name}
                 </Link>
               )
             })}
+            <ThemeToggle />
           </div>
         </nav>
       </div>

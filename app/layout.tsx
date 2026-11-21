@@ -6,6 +6,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from '@/components/footer'
 import { MatrixController } from '@/components/matrix/controller'
+import { ThemeProvider } from '@/components/theme-provider'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
@@ -42,7 +43,7 @@ export const viewport: Viewport = {
 }
 
 // Runs before the first paint, ahead of React. On the first load of a visit it
-// holds a black screen until the intro takes over; on later loads it keeps the
+// holds a blank screen until the intro takes over; on later loads it keeps the
 // page content hidden until the quick decode starts. The matching CSS is in
 // global.css. Visitors who ask for reduced motion get neither, and both holds
 // lift after 4s whatever happens, so a script error can never leave a blank
@@ -56,8 +57,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // suppressHydrationWarning: the boot script sets data-mx-wait on <html>
-  // before React hydrates, so it differs from the server HTML on purpose.
+  // suppressHydrationWarning: before React hydrates, the boot script sets
+  // data-mx-wait on <html> and next-themes sets the theme class and
+  // color-scheme, so it differs from the server HTML on purpose.
   return (
     <html
       lang="en"
@@ -69,16 +71,25 @@ export default function RootLayout({
     >
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
         <script dangerouslySetInnerHTML={{ __html: boot }} />
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-          <Navbar />
-          {/* The part that changes from page to page. Later pages decode
-              only this, not the nav or footer. */}
-          <div data-mx-page>{children}</div>
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </main>
-        <MatrixController />
+        {/* Dark unless the visitor has picked light with the toggle. The OS
+            setting is left out on purpose: the matrix look is dark first. */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+            <Navbar />
+            {/* The part that changes from page to page. Later pages decode
+                only this, not the nav or footer. */}
+            <div data-mx-page>{children}</div>
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
+          </main>
+          <MatrixController />
+        </ThemeProvider>
       </body>
     </html>
   )

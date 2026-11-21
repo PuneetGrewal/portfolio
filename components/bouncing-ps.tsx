@@ -10,8 +10,15 @@ import {
 } from 'motion/react'
 
 // The matrix greens from global.css, bright to dim, so the 404 uses colours
-// the rest of the site already owns.
-const palette = ['#00ff41', '#eafff0', '#17a046', '#7dbf93', '#1e5a36', 'var(--color-foreground)']
+// the rest of the site already owns. Variables, so they follow the theme.
+const palette = [
+  'var(--color-phosphor)',
+  'var(--color-phosphor-hot)',
+  'var(--color-phosphor-dim)',
+  'var(--color-muted-foreground)',
+  'var(--color-line-strong)',
+  'var(--color-foreground)',
+]
 
 // Pixels per second. Thrown letters ease back down to cruise; stalled ones
 // ease back up to it.

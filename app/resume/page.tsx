@@ -44,7 +44,7 @@ export default function Resume() {
       {/* Pulled wider than the page's text column, which is too narrow to read
           a letter-size page in. The viewport-relative width stays centred. */}
       <div className="relative left-1/2 mb-8 w-[92vw] max-w-3xl -translate-x-1/2">
-        <div className="overflow-hidden border border-border bg-card shadow-[0_0_40px_rgb(0_255_65/0.1)]">
+        <div className="overflow-hidden border border-border bg-card shadow-[0_0_40px_color-mix(in_srgb,var(--color-phosphor)_10%,transparent)]">
           {/* The same window bar the live-site cards use, naming the file. */}
           <div
             aria-hidden
